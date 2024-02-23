@@ -17,15 +17,12 @@ public class WeatherController {
 
     @GetMapping("/weather/airQuality/forecast")
     public ResponseEntity<ResponseHandler<AirQualityResponse>> fetchAirQuality() {
-
-        AirQualityResponse airQualityResponse = weatherService.fetchAirQualityInfo();
-
         return ResponseEntity
                 .ok()
                 .body(ResponseHandler.<AirQualityResponse>builder()
                         .message("Success")
                         .statusCode(HttpStatus.OK)
-                        .data(airQualityResponse)
+                        .data(weatherService.fetchAirQualityInfo())
                         .build()
                 );
     }
