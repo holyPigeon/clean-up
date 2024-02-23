@@ -11,7 +11,20 @@ import java.util.List;
 @AllArgsConstructor
 public class AirQualityPrimitiveResponse {
 
-    private List<Item> itemList;
+    private ResponseBody response;
+
+    @Getter
+    @NoArgsConstructor
+    public static class ResponseBody {
+
+        private ResponseBodyItems body;
+
+        @Getter
+        @NoArgsConstructor
+        public static class ResponseBodyItems {
+
+            private int totalCount;
+            private List<Item> items;
 
     @Getter
     @NoArgsConstructor
