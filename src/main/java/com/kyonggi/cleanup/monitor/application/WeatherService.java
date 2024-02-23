@@ -30,6 +30,8 @@ public class WeatherService {
                 "&sidoName=" + "경기" +
                 "&ver=" + 1.2;
 
+        String stationName = "금곡동";
+
         // 장소 목록 검색 API 요청
         WebClient client = WebClient.builder()
                 .baseUrl(apiURL)
@@ -48,7 +50,7 @@ public class WeatherService {
                 .getItems();
 
         return items.stream()
-                .filter(item -> item.getStationName().equals("금곡동"))
+                .filter(item -> item.getStationName().equals(stationName))
                 .map(AirQualityResponse::of)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("해당하는 관측소명이 존재하지 않습니다."));
