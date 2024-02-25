@@ -2,12 +2,17 @@ package com.kyonggi.cleanup.monitor.application;
 
 import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityResponse;
 import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityPrimitiveResponse;
+import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherCode;
+import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoPrimitiveResponse;
+import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -54,5 +59,64 @@ public class WeatherService {
                 .map(AirQualityResponse::of)
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("해당하는 관측소명이 존재하지 않습니다."));
+    }
+
+    /*
+    단기기상예보 요청
+     */
+    public WeatherInfoResponse fetchWeatherInfo() {
+
+        String serviceKey = "loLOWGHUcyqyf9PrOQeg7EzPx8ingWLA%2FSe%2FwSX%2FCZ0TUl3205I0q03halYbawbm1Vs61K%2FRVGtzHfiG3NbGrw%3D%3D";
+
+        LocalDateTime currentDateTime = LocalDateTime.now().minusHours(1).withMinute(0);
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+
+        // 포맷에 맞게 날짜와 시간을 문자열로 변환
+        String formattedDate = currentDateTime.format(dateFormatter);
+        String formattedTime = currentDateTime.format(timeFormatter);
+
+        String apiURL = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst" +
+                "?ServiceKey=" + serviceKey +
+                "&pageNo=" + 1 +
+                "&numOfRows=" + 100 +
+                "&dataType=" + "JSON" +
+                "&base_date=" + formattedDate +
+                "&base_time=" + formattedTime +
+                "&nx=" + "63" + // 성남시 중원구 상대원동 좌표
+                "&ny=" + "24";
+
+        // 장소 목록 검색 API 요청
+        WebClient client = WebClient.builder()
+                .baseUrl(apiURL)
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        Mono<WeatherInfoPrimitiveResponse> response = client.get()
+                .uri(apiURL)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(WeatherInfoPrimitiveResponse.class);
+
+        List<WeatherInfoPrimitiveResponse.Item> items = Objects.requireNonNull(response.block())
+                .getResponse()
+                .getBody()
+                .getItems()
+                .getItem();
+
+        String temperature = "unknown";
+        String humidity = "unknown";
+
+        for (WeatherInfoPrimitiveResponse.Item item : items) {
+            if (item.getCategory().equals(WeatherCode.TEMPERATURE.getCode())) {
+                temperature = item.getObsrValue();
+            }
+            if (item.getCategory().equals(WeatherCode.HUMIDITY.getCode())) {
+                humidity = item.getObsrValue();
+            }
+        }
+
+        return WeatherInfoResponse.of(temperature, humidity);
     }
 }
