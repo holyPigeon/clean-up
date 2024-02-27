@@ -1,11 +1,13 @@
 package com.kyonggi.cleanup.monitor.application.dto.response.airQuality;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
+@Builder
 public class AirQualityResponse {
 
     private LocalDateTime dateTime;
@@ -52,36 +54,33 @@ public class AirQualityResponse {
     private String o3Grade;
     private String o3Flag;
 
-    private AirQualityResponse(AirQualityPrimitiveResponse.ResponseBody.ResponseBodyItems.Item response) {
-
-        this.dateTime = LocalDateTime.parse(response.getDataTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        this.sidoName = response.getSidoName();
-        this.mangName = response.getMangName();
-        this.pm10Value = response.getPm10Value();
-        this.pm10Value24h = response.getPm10Value24();
-        this.pm10Grade1h = response.getPm10Grade1h();
-        this.pm10Grade24h = response.getPm10Grade();
-        this.pm10Flag = response.getPm10Flag();
-        this.pm25Value = response.getPm25Value();
-        this.pm25Value24h = response.getPm25Value24();
-        this.pm25Grade1h = response.getPm25Grade1h();
-        this.pm25Grade24h = response.getPm25Grade();
-        this.pm25Flag = response.getPm25Flag();
-        this.no2Value = response.getNo2Value();
-        this.no2Grade = response.getNo2Grade();
-        this.no2Flag = response.getNo2Flag();
-        this.so2Value = response.getSo2Value();
-        this.so2Grade = response.getSo2Grade();
-        this.so2Flag = response.getSo2Flag();
-        this.coValue = response.getCoValue();
-        this.coGrade = response.getCoGrade();
-        this.coFlag = response.getCoFlag();
-        this.o3Value = response.getO3Value();
-        this.o3Grade = response.getO3Grade();
-        this.o3Flag = response.getO3Flag();
-    }
-
     public static AirQualityResponse of(AirQualityPrimitiveResponse.ResponseBody.ResponseBodyItems.Item response) {
-        return new AirQualityResponse(response);
+        return AirQualityResponse.builder()
+                .dateTime(LocalDateTime.parse(response.getDataTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .sidoName(response.getSidoName())
+                .mangName(response.getMangName())
+                .pm10Value(response.getPm10Value())
+                .pm10Value24h(response.getPm10Value24())
+                .pm10Grade1h(response.getPm10Grade1h())
+                .pm10Grade24h(response.getPm10Grade())
+                .pm10Flag(response.getPm10Flag())
+                .pm25Value(response.getPm25Value())
+                .pm25Grade24h(response.getPm25Value24())
+                .pm25Grade1h(response.getPm25Grade1h())
+                .pm25Grade24h(response.getPm25Grade())
+                .pm25Flag(response.getPm25Flag())
+                .no2Value(response.getNo2Value())
+                .no2Grade(response.getNo2Grade())
+                .no2Flag(response.getNo2Flag())
+                .so2Value(response.getSo2Value())
+                .so2Grade(response.getSo2Grade())
+                .so2Flag(response.getSo2Flag())
+                .coValue(response.getCoValue())
+                .coGrade(response.getCoGrade())
+                .coFlag(response.getCoFlag())
+                .o3Value(response.getO3Value())
+                .o3Grade(response.getO3Grade())
+                .o3Flag(response.getO3Flag())
+                .build();
     }
 }
