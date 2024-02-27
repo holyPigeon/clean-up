@@ -43,19 +43,15 @@ public class ParkingLotService {
         for (int rowIndex = 1; rowIndex < rows; rowIndex++) {
             XSSFRow row = sheet.getRow(rowIndex);
             if (row == null) {
-                continue; // 행이 null이면 다음 행으로 넘어간다
+                continue; // 행이 null이면 다음 행으로 넘어간다.
             }
 
-            items.add(ParkingLotDataResponse.Item.of(
-                    LocalDateTime.parse(getValueByCellType(row.getCell(0))),
-                    getValueByCellType(row.getCell(1)),
-                    getValueByCellType(row.getCell(2)),
-                    getValueByCellType(row.getCell(3)),
-                    getValueByCellType(row.getCell(4)),
-                    getValueByCellType(row.getCell(5)),
-                    getValueByCellType(row.getCell(6)),
-                    getValueByCellType(row.getCell(7))
-            ));
+            String[] cellValues = new String[8];
+            for (int cellIndex = 0; cellIndex < cellValues.length; cellIndex++) {
+                cellValues[cellIndex] = getValueByCellType(row.getCell(cellIndex));
+            }
+
+            items.add(ParkingLotDataResponse.Item.of(cellValues));
         }
     }
 
