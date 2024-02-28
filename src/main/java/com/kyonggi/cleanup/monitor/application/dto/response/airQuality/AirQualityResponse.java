@@ -13,6 +13,7 @@ public class AirQualityResponse {
     private LocalDateTime dateTime;
     private String sidoName; // 시도 이름 -> ex) 서울 부산 대구 인천 광주 대전 울산 경기 강원
     private String mangName; // 측정망 정보 -> 도시대기, 도로변대기, 국가배경농도, 교외대기, 항만
+    private String stationName;
 
     /*
     value: 농도
@@ -59,6 +60,7 @@ public class AirQualityResponse {
                 .dateTime(LocalDateTime.parse(response.getDataTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .sidoName(response.getSidoName())
                 .mangName(response.getMangName())
+                .stationName(response.getStationName())
                 .pm10Value(response.getPm10Value())
                 .pm10Value24h(response.getPm10Value24())
                 .pm10Grade1h(response.getPm10Grade1h())
