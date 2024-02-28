@@ -83,19 +83,14 @@ public class WeatherService {
                 "&nx=" + "63" + // 성남시 중원구 상대원동 좌표
                 "&ny=" + "24";
 
-        // 장소 목록 검색 API 요청
-        WebClient client = WebClient.builder()
-                .baseUrl(apiURL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
+        RestTemplate restTemplate = new RestTemplate();
 
-        Mono<WeatherInfoPrimitiveResponse> response = client.get()
-                .uri(apiURL)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(WeatherInfoPrimitiveResponse.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        List<WeatherInfoPrimitiveResponse.Item> items = Objects.requireNonNull(response.block())
+        ResponseEntity<WeatherInfoPrimitiveResponse> response = restTemplate.exchange(apiURL, HttpMethod.GET, entity, WeatherInfoPrimitiveResponse.class);
+        List<WeatherInfoPrimitiveResponse.Item> items = response.getBody()
                 .getResponse()
                 .getBody()
                 .getItems()
