@@ -1,21 +1,22 @@
 package com.kyonggi.cleanup.monitor.application;
 
-import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityResponse;
 import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityPrimitiveResponse;
+import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityResponse;
 import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherCode;
 import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoPrimitiveResponse;
 import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoResponse;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @Service
 public class WeatherService {
@@ -37,19 +38,14 @@ public class WeatherService {
 
         String stationName = "금곡동";
 
-        // 장소 목록 검색 API 요청
-        WebClient client = WebClient.builder()
-                .baseUrl(apiURL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
+        RestTemplate restTemplate = new RestTemplate();
 
-        Mono<AirQualityPrimitiveResponse> response = client.get()
-                .uri(apiURL)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(AirQualityPrimitiveResponse.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        List<AirQualityPrimitiveResponse.ResponseBody.ResponseBodyItems.Item> items = Objects.requireNonNull(response.block())
+        ResponseEntity<AirQualityPrimitiveResponse> response = restTemplate.exchange(apiURL, HttpMethod.GET, entity, AirQualityPrimitiveResponse.class);
+        List<AirQualityPrimitiveResponse.ResponseBody.ResponseBodyItems.Item> items = response.getBody()
                 .getResponse()
                 .getBody()
                 .getItems();
