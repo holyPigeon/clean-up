@@ -34,7 +34,7 @@ public class WeatherService {
                 "&numOfRows=" + 100 +
                 "&pageNo=" + 1 +
                 "&sidoName=" + "경기" +
-                "&ver=" + 1.2;
+                "&ver=" + 1.4;
 
         String stationName = "금곡동";
 
