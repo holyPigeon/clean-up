@@ -26,7 +26,7 @@ public class WeatherService {
      */
     public AirQualityResponse fetchAirQualityInfo() {
 
-        String serviceKey = "loLOWGHUcyqyf9PrOQeg7EzPx8ingWLA%2FSe%2FwSX%2FCZ0TUl3205I0q03halYbawbm1Vs61K%2FRVGtzHfiG3NbGrw%3D%3D";
+        String serviceKey = "loLOWGHUcyqyf9PrOQeg7EzPx8ingWLA/Se/wSX/CZ0TUl3205I0q03halYbawbm1Vs61K/RVGtzHfiG3NbGrw==";
 
         String apiURL = "https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty" +
                 "?ServiceKey=" + serviceKey +
@@ -62,7 +62,7 @@ public class WeatherService {
      */
     public WeatherInfoResponse fetchWeatherInfo() {
 
-        String serviceKey = "loLOWGHUcyqyf9PrOQeg7EzPx8ingWLA%2FSe%2FwSX%2FCZ0TUl3205I0q03halYbawbm1Vs61K%2FRVGtzHfiG3NbGrw%3D%3D";
+        String serviceKey = "loLOWGHUcyqyf9PrOQeg7EzPx8ingWLA/Se/wSX/CZ0TUl3205I0q03halYbawbm1Vs61K/RVGtzHfiG3NbGrw==";
 
         LocalDateTime currentDateTime = LocalDateTime.now().minusHours(1).withMinute(0);
 
