@@ -36,7 +36,8 @@ public class WeatherService {
                 "&sidoName=" + "경기" +
                 "&ver=" + 1.4;
 
-        String stationName = "금곡동";
+        String stationName1 = "상대원동";
+        String stationName2 = "금곡동";
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -51,10 +52,16 @@ public class WeatherService {
                 .getItems();
 
         return items.stream()
-                .filter(item -> item.getStationName().equals(stationName))
+                .filter(item -> item.getStationName().equals(stationName1))
                 .map(AirQualityResponse::of)
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("해당하는 관측소명이 존재하지 않습니다."));
+                .orElseGet(() -> items.stream()
+                        .filter(item -> item.getStationName().equals(stationName2))
+                        .map(AirQualityResponse::of)
+                        .findFirst()
+                        .orElseThrow(() -> new NoSuchElementException("해당하는 관측소명이 존재하지 않습니다."))
+                );
+
     }
 
     /*
