@@ -1,4 +1,4 @@
-package com.kyonggi.cleanup.monitor.application.dto.response.airQuality;
+package com.kyonggi.cleanup.weather.dto.response.airQuality;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

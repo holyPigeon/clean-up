@@ -1,4 +1,4 @@
-package com.kyonggi.cleanup.parkinglot.application.dto.request;
+package com.kyonggi.cleanup.parkinglot.dto.request;
 
 import lombok.Getter;
 

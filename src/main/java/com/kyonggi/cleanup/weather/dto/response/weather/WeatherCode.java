@@ -1,4 +1,4 @@
-package com.kyonggi.cleanup.monitor.application.dto.response.weather;
+package com.kyonggi.cleanup.weather.dto.response.weather;
 
 public enum WeatherCode {
 

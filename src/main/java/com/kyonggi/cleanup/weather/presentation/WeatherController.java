@@ -1,9 +1,9 @@
-package com.kyonggi.cleanup.monitor.presentation;
+package com.kyonggi.cleanup.weather.presentation;
 
 import com.kyonggi.cleanup.common.domain.response.ResponseHandler;
-import com.kyonggi.cleanup.monitor.application.WeatherService;
-import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityResponse;
-import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoResponse;
+import com.kyonggi.cleanup.weather.application.WeatherService;
+import com.kyonggi.cleanup.weather.dto.response.airQuality.AirQualityResponse;
+import com.kyonggi.cleanup.weather.dto.response.weather.WeatherInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

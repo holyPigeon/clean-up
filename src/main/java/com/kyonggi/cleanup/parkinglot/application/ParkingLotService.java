@@ -1,12 +1,18 @@
 package com.kyonggi.cleanup.parkinglot.application;
 
-import com.kyonggi.cleanup.parkinglot.application.dto.response.ParkingLotInfoResponse;
-import com.kyonggi.cleanup.parkinglot.application.dto.response.PollutionDataResponse;
+import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByCondition;
+import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.ParkingLotInfoResponse;
+import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByCondition;
+import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByDateTime;
 import com.kyonggi.cleanup.parkinglot.domain.ParkingLotData;
+import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByDateTime;
 import com.kyonggi.cleanup.parkinglot.infrastructure.ParkingLotInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,68 +20,94 @@ import java.util.List;
 public class ParkingLotService {
 
     private final ParkingLotInfoRepository parkingLotInfoRepository;
+    private final PollutionPredictor pollutionPredictor;
 
     public ParkingLotInfoResponse findParkingLotInfo() {
         return ParkingLotInfoResponse.of(parkingLotInfoRepository.findAll());
     }
 
-    public ParkingLotInfoResponse findParkingLotInfoByAmPm(boolean isPm) {
-        List<ParkingLotData> parkingLotInfo = parkingLotInfoRepository.findAll();
-        if (isPm) {
-            return ParkingLotInfoResponse.of(
-                    parkingLotInfo
-                            .stream()
-                            .filter(parkingLotData -> parkingLotData.getHour() >= 12 && parkingLotData.getHour() <= 23)
-                            .toList()
-            );
-        } else {
-            return ParkingLotInfoResponse.of(
-                    parkingLotInfo
-                            .stream()
-                            .filter(parkingLotData -> parkingLotData.getHour() >= 0 && parkingLotData.getHour() <= 11)
-                            .toList()
-            );
+    public ParkingLotInfoResponse findParkingLotInfoByDateTime(int month, int day, int hour, int minute) {
+        ParkingLotData parkingLotData = parkingLotInfoRepository.findByMonthAndDayAndHourAndMinute(month, day, hour, minute);
+
+        return ParkingLotInfoResponse.of(List.of(parkingLotData));
+    }
+
+    public NoxPredictionResponseByDateTime getNoxPrediction24HourByDateTime(PollutionPredictRequestByDateTime request) {
+
+        int month = request.getMonth();
+        int day = request.getDay();
+        int hour = request.getHour();
+        int minute = request.getMinute();
+
+        List<NoxPredictionResponseByDateTime.Result> results = new ArrayList<>();
+
+        for (int i = 0; i < 48; i++) {
+            ParkingLotData parkingLotData = parkingLotInfoRepository.findByMonthAndDayAndHourAndMinute(month, day, hour, minute);
+            PollutionPredictRequestByCondition predictRequest = PollutionPredictRequestByCondition.of(parkingLotData);
+            double actualNox = parkingLotData.getNox();
+            double predictedNox = pollutionPredictor.predictNoxAfter30MinuteByDateTime(predictRequest);
+            results.add(NoxPredictionResponseByDateTime.Result.of(month, day, hour, minute, actualNox, predictedNox));
+
+            if (minute == 30) {
+                if (hour == 23) {
+                    hour = -1;
+                    day++;
+                }
+                hour++;
+                minute = 0;
+            } else {
+                minute = 30;
+            }
         }
+
+        return NoxPredictionResponseByDateTime.of(results);
     }
 
-    public PollutionDataResponse predictPollutionDataByDateTime(
-            int month,
-            int day,
-            int hour,
-            int minute
-    ) {
+    public SoxPredictionResponseByDateTime getSoxPrediction24HourByDateTime(PollutionPredictRequestByDateTime request) {
 
-        // ...
-        // algorithm
-        // ...
+        int month = request.getMonth();
+        int day = request.getDay();
+        int hour = request.getHour();
+        int minute = request.getMinute();
 
-        double predictionNox = 1.0;
-        double predictionSox = 2.0;
+        List<SoxPredictionResponseByDateTime.Result> results = new ArrayList<>();
 
-        return PollutionDataResponse.builder()
-                .nox(predictionNox)
-                .sox(predictionSox)
-                .build();
+        for (int i = 0; i < 48; i++) {
+            ParkingLotData parkingLotData = parkingLotInfoRepository.findByMonthAndDayAndHourAndMinute(month, day, hour, minute);
+            PollutionPredictRequestByCondition predictRequest = PollutionPredictRequestByCondition.of(parkingLotData);
+            double actualSox = parkingLotData.getSox();
+            double predictedSox = pollutionPredictor.predictSoxAfter30MinuteByDateTime(predictRequest);
+            results.add(SoxPredictionResponseByDateTime.Result.of(month, day, hour, minute, actualSox, predictedSox));
+
+            if (minute == 30) {
+                if (hour == 23) {
+                    hour = -1;
+                    day++;
+                }
+                hour++;
+                minute = 0;
+            } else {
+                minute = 30;
+            }
+        }
+
+        return SoxPredictionResponseByDateTime.of(results);
     }
 
-    public PollutionDataResponse predictPollutionDataByCondition(
-            int carCount,
-            double temperature,
-            double humidity,
-            double currentNox,
-            double currentSox
-    ) {
+    public PollutionPredictionResponseByCondition getPollutionPrediction2HourByCondition(PollutionPredictRequestByCondition request) {
 
-        // ...
-        // algorithm
-        // ...
+        List<PollutionPredictionResponseByCondition.Result> results = new ArrayList<>();
+        int passedMinute;
 
-        double predictionNox = 3.0;
-        double predictionSox = 4.0;
+        for (int i = 1; i <= 4; i++) {
+            passedMinute = 30 * i;
+            double predictedNox = pollutionPredictor.predictNoxByCondition(request, passedMinute);
+            double predictedSox = pollutionPredictor.predictSoxByCondition(request, passedMinute);
+            results.add(PollutionPredictionResponseByCondition.Result.of(passedMinute, predictedNox, predictedSox));
+        }
 
-        return PollutionDataResponse.builder()
-                .nox(predictionNox)
-                .sox(predictionSox)
-                .build();
+        return PollutionPredictionResponseByCondition.of(results);
     }
+
+
 }

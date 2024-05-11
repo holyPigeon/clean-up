@@ -1,10 +1,10 @@
-package com.kyonggi.cleanup.monitor.application;
+package com.kyonggi.cleanup.weather.application;
 
-import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityPrimitiveResponse;
-import com.kyonggi.cleanup.monitor.application.dto.response.airQuality.AirQualityResponse;
-import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherCode;
-import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoPrimitiveResponse;
-import com.kyonggi.cleanup.monitor.application.dto.response.weather.WeatherInfoResponse;
+import com.kyonggi.cleanup.weather.dto.response.airQuality.AirQualityPrimitiveResponse;
+import com.kyonggi.cleanup.weather.dto.response.airQuality.AirQualityResponse;
+import com.kyonggi.cleanup.weather.dto.response.weather.WeatherCode;
+import com.kyonggi.cleanup.weather.dto.response.weather.WeatherInfoPrimitiveResponse;
+import com.kyonggi.cleanup.weather.dto.response.weather.WeatherInfoResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -88,7 +88,7 @@ public class WeatherService {
                 "&base_date=" + formattedDate +
                 "&base_time=" + formattedTime +
                 "&nx=" + "63" + // 성남시 중원구 상대원동 좌표
-                "&ny=" + "24";
+                "&ny=" + "124";
 
         RestTemplate restTemplate = new RestTemplate();
 

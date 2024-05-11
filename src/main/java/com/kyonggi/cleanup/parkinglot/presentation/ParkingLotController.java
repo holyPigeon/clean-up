@@ -2,11 +2,14 @@ package com.kyonggi.cleanup.parkinglot.presentation;
 
 import com.kyonggi.cleanup.common.domain.response.ResponseHandler;
 import com.kyonggi.cleanup.parkinglot.application.ParkingLotService;
-import com.kyonggi.cleanup.parkinglot.application.dto.request.ParkingLotInfoRequestByAmPm;
-import com.kyonggi.cleanup.parkinglot.application.dto.request.PollutionPredictRequestByCondition;
-import com.kyonggi.cleanup.parkinglot.application.dto.request.PollutionPredictRequestByDateTime;
-import com.kyonggi.cleanup.parkinglot.application.dto.response.ParkingLotInfoResponse;
-import com.kyonggi.cleanup.parkinglot.application.dto.response.PollutionDataResponse;
+import com.kyonggi.cleanup.parkinglot.dto.request.ParkingLotInfoRequestByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByCondition;
+import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.ParkingLotInfoResponse;
+import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByCondition;
+import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,49 +37,55 @@ public class ParkingLotController {
     }
 
     @PostMapping("/parkinglot/info")
-    public ResponseEntity<ResponseHandler<ParkingLotInfoResponse>> fetchParkingLotInfoByAmPm(@RequestBody ParkingLotInfoRequestByAmPm request) {
-        System.out.println("as;ldhsaljdhlsajkdhlsak -> " + request.isPm());
+    public ResponseEntity<ResponseHandler<ParkingLotInfoResponse>> fetchParkingLotInfo(@RequestBody ParkingLotInfoRequestByDateTime request) {
         return ResponseEntity
                 .ok()
                 .body(ResponseHandler.<ParkingLotInfoResponse>builder()
                         .message("Success")
                         .statusCode(HttpStatus.OK)
-                        .data(parkingLotService.findParkingLotInfoByAmPm(request.isPm()))
+                        .data(parkingLotService.findParkingLotInfoByDateTime(request.getMonth(), request.getDay(), request.getHour(), request.getMinute()))
                         .build()
                 );
     }
 
-    @PostMapping("/parkinglot/predictByDateTime")
-    public ResponseEntity<ResponseHandler<PollutionDataResponse>> predictPollutionDataByDateTime(@RequestBody PollutionPredictRequestByDateTime request) {
+    /**
+     * 특정 시간 입력 후 24시간 동안의 실제/예측 데이터 조회
+     */
+    @PostMapping("/parkinglot/predictByDateTime/nox")
+    public ResponseEntity<ResponseHandler<NoxPredictionResponseByDateTime>> getNoxPrediction24HourByDateTime(@RequestBody PollutionPredictRequestByDateTime request) {
         return ResponseEntity
                 .ok()
-                .body(ResponseHandler.<PollutionDataResponse>builder()
+                .body(ResponseHandler.<NoxPredictionResponseByDateTime>builder()
                         .message("Success")
                         .statusCode(HttpStatus.OK)
-                        .data(parkingLotService.predictPollutionDataByDateTime(
-                                request.getMonth(),
-                                request.getDay(),
-                                request.getHour(),
-                                request.getMinute()
-                        ))
+                        .data(parkingLotService.getNoxPrediction24HourByDateTime(request))
                         .build()
                 );
     }
 
+    @PostMapping("/parkinglot/predictByDateTime/sox")
+    public ResponseEntity<ResponseHandler<SoxPredictionResponseByDateTime>> getSoxPrediction24HourByDateTime(@RequestBody PollutionPredictRequestByDateTime request) {
+        return ResponseEntity
+                .ok()
+                .body(ResponseHandler.<SoxPredictionResponseByDateTime>builder()
+                        .message("Success")
+                        .statusCode(HttpStatus.OK)
+                        .data(parkingLotService.getSoxPrediction24HourByDateTime(request))
+                        .build()
+                );
+    }
+
+    /**
+     * 특정 주차장 조건 입력 후 2시간 동안의 실제/예측 데이터 조회
+     */
     @PostMapping("/parkinglot/predictByCondition")
-    public ResponseEntity<ResponseHandler<PollutionDataResponse>> predictPollutionDataByCondition(@RequestBody PollutionPredictRequestByCondition request) {
+    public ResponseEntity<ResponseHandler<PollutionPredictionResponseByCondition>> getPollutionPrediction2HourByCondition(@RequestBody PollutionPredictRequestByCondition request) {
         return ResponseEntity
                 .ok()
-                .body(ResponseHandler.<PollutionDataResponse>builder()
+                .body(ResponseHandler.<PollutionPredictionResponseByCondition>builder()
                         .message("Success")
                         .statusCode(HttpStatus.OK)
-                        .data(parkingLotService.predictPollutionDataByCondition(
-                                request.getCarCount(),
-                                request.getTemperature(),
-                                request.getHumidity(),
-                                request.getCurrentNox(),
-                                request.getCurrentSox()
-                        ))
+                        .data(parkingLotService.getPollutionPrediction2HourByCondition(request))
                         .build()
                 );
     }

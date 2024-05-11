@@ -25,7 +25,13 @@ public class ParkingLotData {
 
     private int minute;
 
-    private int carCount;
+    private double externalTemperature;
+
+    private double externalHumidity;
+
+    private double externalNox;
+
+    private double externalSox;
 
     private double temperature;
 
@@ -35,5 +41,5 @@ public class ParkingLotData {
 
     private double sox;
 
-    private double dieselVehiclePercentage;
+    private int carCount;
 }

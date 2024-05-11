@@ -31,7 +31,7 @@ public class ScheduledTasks {
     @Scheduled(fixedRate = 24, timeUnit = TimeUnit.HOURS)
     public void saveExtractedParkingLotData() {
 
-        try (InputStream inputStream = new ClassPathResource("data/dirt.xlsx").getInputStream()) {
+        try (InputStream inputStream = new ClassPathResource("data/parkinglot_data.xltx").getInputStream()) {
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);
             int rows = sheet.getPhysicalNumberOfRows();
@@ -58,41 +58,17 @@ public class ScheduledTasks {
             parkingLotData.setDay((int) row.getCell(1).getNumericCellValue());
             parkingLotData.setHour((int) row.getCell(2).getNumericCellValue());
             parkingLotData.setMinute((int) row.getCell(3).getNumericCellValue());
-            parkingLotData.setTemperature(row.getCell(4).getNumericCellValue());
-            parkingLotData.setHumidity(row.getCell(5).getNumericCellValue());
-            parkingLotData.setNox(Math.round(row.getCell(6).getNumericCellValue() * 1000) / 1000.0);
-            parkingLotData.setSox(row.getCell(7).getNumericCellValue());
-            parkingLotData.setCarCount((int) row.getCell(8).getNumericCellValue());
+            parkingLotData.setExternalTemperature(row.getCell(4).getNumericCellValue());
+            parkingLotData.setExternalHumidity(row.getCell(5).getNumericCellValue());
+            parkingLotData.setExternalNox(Math.round(row.getCell(6).getNumericCellValue() * 1000) / 1000.0);
+            parkingLotData.setExternalSox(Math.round(row.getCell(7).getNumericCellValue() * 1000) / 1000.0);
+            parkingLotData.setTemperature(row.getCell(8).getNumericCellValue());
+            parkingLotData.setHumidity(row.getCell(9).getNumericCellValue());
+            parkingLotData.setNox(Math.round(row.getCell(10).getNumericCellValue() * 1000) / 1000.0);
+            parkingLotData.setSox(Math.round(row.getCell(11).getNumericCellValue() * 1000) / 1000.0);
+            parkingLotData.setCarCount((int) row.getCell(12).getNumericCellValue());
 
             parkingLotInfoRepository.save(parkingLotData);
         }
-    }
-
-    private String getValueByCellType(XSSFCell cell) {
-        String value;
-        switch (cell.getCellType()) {
-            case FORMULA:
-                value = cell.getCellFormula();
-                break;
-            case NUMERIC:
-                value = String.valueOf(cell.getNumericCellValue());
-                break;
-            case STRING:
-                value = cell.getStringCellValue();
-                break;
-            case BLANK:
-                value = "";
-                break;
-            case BOOLEAN:
-                value = String.valueOf(cell.getBooleanCellValue());
-                break;
-            case ERROR:
-                value = String.valueOf(cell.getErrorCellValue());
-                break;
-            default:
-                value = "Unknown Cell Type";
-                break;
-        }
-        return value;
     }
 }

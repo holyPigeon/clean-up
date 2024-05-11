@@ -1,4 +1,4 @@
-package com.kyonggi.cleanup.parkinglot.application.dto.response;
+package com.kyonggi.cleanup.parkinglot.dto.response;
 
 import com.kyonggi.cleanup.parkinglot.domain.ParkingLotData;
 import lombok.Builder;
@@ -10,45 +10,51 @@ import java.util.List;
 @Builder
 public class ParkingLotInfoResponse {
 
-    private List<ParkingLotDataResponse> items;
+    private List<Result> results;
 
     public static ParkingLotInfoResponse of(List<ParkingLotData> items) {
-        List<ParkingLotDataResponse> list = items.stream()
-                .map(ParkingLotDataResponse::of)
+        List<Result> list = items.stream()
+                .map(Result::of)
                 .toList();
 
         return ParkingLotInfoResponse.builder()
-                .items(list)
+                .results(list)
                 .build();
     }
 
     @Getter
     @Builder
-    public static class ParkingLotDataResponse {
+    public static class Result {
 
         private int month;
         private int day;
         private int hour;
         private int minute;
-        private int carCount;
+        private double externalTemperature;
+        private double externalHumidity;
+        private double externalNox;
+        private double externalSox;
         private double temperature;
         private double humidity;
         private double nox;
         private double sox;
-        private double dieselVehiclePercentage;
+        private int carCount;
 
-        public static ParkingLotDataResponse of(ParkingLotData parkingLotData) {
-            return ParkingLotDataResponse.builder()
+        public static Result of(ParkingLotData parkingLotData) {
+            return Result.builder()
                     .month(parkingLotData.getMonth())
                     .day(parkingLotData.getDay())
                     .hour(parkingLotData.getHour())
                     .minute(parkingLotData.getMinute())
-                    .carCount(parkingLotData.getCarCount())
                     .temperature(parkingLotData.getTemperature())
                     .humidity(parkingLotData.getHumidity())
                     .nox(parkingLotData.getNox())
                     .sox(parkingLotData.getSox())
-                    .dieselVehiclePercentage(parkingLotData.getDieselVehiclePercentage())
+                    .externalTemperature(parkingLotData.getExternalTemperature())
+                    .externalHumidity(parkingLotData.getExternalHumidity())
+                    .externalNox(parkingLotData.getExternalNox())
+                    .externalSox(parkingLotData.getExternalSox())
+                    .carCount(parkingLotData.getCarCount())
                     .build();
         }
     }
