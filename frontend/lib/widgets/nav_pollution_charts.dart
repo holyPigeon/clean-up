@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyonggi_project/models/predicted_nox.dart';
 import 'package:kyonggi_project/models/predicted_sox.dart';
-import 'package:kyonggi_project/screens/main_screen.dart';
 import 'package:kyonggi_project/services/actual_nox.dart';
 import 'package:kyonggi_project/services/actual_sox.dart';
 import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/input_infos.dart';
+import '../screens/time_predict.dart';
 
 class NavPollutionCharts extends StatefulWidget {
   final int month;

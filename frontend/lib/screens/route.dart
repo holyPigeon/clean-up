@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kyonggi_project/screens/parking_lot_predict.dart';
 import 'package:kyonggi_project/screens/time_predict.dart';
 import 'main_screen.dart';
 
@@ -26,6 +27,7 @@ class _RoutePageState extends State<RoutePage> {
   final List<Widget> _widgetOptions = <Widget>[
     const MainScreen(),
     const TimePredict(),
+    const ParkingLotPredict(),
   ];
 
   void _onItemTapped(int index) {

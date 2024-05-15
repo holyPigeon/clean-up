@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:kyonggi_project/models/parking_lot_info.dart';
-import 'package:kyonggi_project/screens/main_screen.dart';
 import 'package:kyonggi_project/services/parking_info.dart';
+
+import '../screens/time_predict.dart';
 
 class ParkingDataWidget extends StatefulWidget {
   final int month;
