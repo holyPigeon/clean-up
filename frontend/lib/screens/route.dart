@@ -45,7 +45,7 @@ class _RoutePageState extends State<RoutePage> {
           scrolledUnderElevation: 0,
           backgroundColor: Colors.white,
           title: Image.asset(
-            'assets/splash_logo.png',
+            'assets/logo.png',
             width: 130,
           ),
           centerTitle:  true,
