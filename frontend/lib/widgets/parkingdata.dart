@@ -37,22 +37,22 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
               DataColumn(label: Container()),
               const DataColumn(
                   label: Text(
-                '기온(°C)',
+                '기온\n(°C)',
                 style: TextStyle(color: Colors.black),
               )),
               const DataColumn(
                   label: Text(
-                '습도(%)',
+                '습도\n(%)',
                 style: TextStyle(color: Colors.black),
               )),
               const DataColumn(
                   label: Text(
-                'NOx(ppm)',
+                'NOx\n(ppm)',
                 style: TextStyle(color: Colors.black),
               )),
               const DataColumn(
                   label: Text(
-                'SOx(ppm)',
+                'SOx\n(ppm)',
                 style: TextStyle(color: Colors.black),
               )),
               const DataColumn(

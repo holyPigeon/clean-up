@@ -120,12 +120,8 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Dialog(
-                            child: Box(
-                              width: width * 0.8,
-                              height: height * 0.55,
-                              widget: const InputInfos(),
-                            ),
+                          return const Dialog(
+                            child: InputInfos()
                           );
                         },
                       );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class InputInfos extends StatefulWidget {
@@ -31,13 +32,14 @@ class _InputInfosState extends State<InputInfos> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Row(
             children: [
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _temperatureController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: '온도',
                   ),
@@ -50,10 +52,10 @@ class _InputInfosState extends State<InputInfos> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
@@ -62,16 +64,16 @@ class _InputInfosState extends State<InputInfos> {
                     updateCanSubmit();
                   },
                 ),
-              ),
+              )
             ],
           ),
           const SizedBox(height: 16.0),
           Row(
             children: [
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _humidityController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: '습도',
                   ),
@@ -84,10 +86,10 @@ class _InputInfosState extends State<InputInfos> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
@@ -102,10 +104,10 @@ class _InputInfosState extends State<InputInfos> {
           const SizedBox(height: 16.0),
           Row(
             children: [
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _vehicleCountController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: '차량 대수',
                   ),
@@ -118,10 +120,10 @@ class _InputInfosState extends State<InputInfos> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
@@ -136,10 +138,10 @@ class _InputInfosState extends State<InputInfos> {
           const SizedBox(height: 16.0),
           Row(
             children: [
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _noxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'NOx',
                   ),
@@ -152,10 +154,10 @@ class _InputInfosState extends State<InputInfos> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
@@ -170,10 +172,10 @@ class _InputInfosState extends State<InputInfos> {
           const SizedBox(height: 16.0),
           Row(
             children: [
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
@@ -186,10 +188,10 @@ class _InputInfosState extends State<InputInfos> {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 145,
+              Expanded(
                 child: TextField(
                   controller: _soxController,
+                  style: const TextStyle(color: Colors.black),
                   decoration: const InputDecoration(
                     labelText: 'SOx',
                   ),
