@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kyonggi_project/models/dust_info.dart';
 import 'package:kyonggi_project/models/weather_info.dart';
 import 'package:kyonggi_project/services/dust_info_service.dart';
@@ -83,10 +84,13 @@ class _MainScreenState extends State<MainScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Box(
-                        width: width * 0.43,
-                        height: height * 0.12,
-                        widget: Center(
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           child: Column(
                             children: [
                               const Text(
@@ -106,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: [
                                               const Text(
                                                 'NOx',
@@ -123,7 +127,7 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: [
                                               const Text(
                                                 'SOx',
@@ -155,10 +159,16 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                      Box(
-                        width: width * 0.43,
-                        height: height * 0.12,
-                        widget: Center(
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: const EdgeInsets.all(10),
                           child: Column(
                             children: [
                               const Text(
@@ -178,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: [
                                               const Text(
                                                 '기온',
@@ -195,7 +205,7 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: [
                                               const Text(
                                                 '습도',
@@ -217,7 +227,7 @@ class _MainScreenState extends State<MainScreen> {
                                     return Text(
                                       '${snapshot.error}',
                                       style:
-                                          const TextStyle(color: Colors.black),
+                                      const TextStyle(color: Colors.black),
                                     ); // 오류 처리
                                   }
                                   // 데이터 로딩 중 표시할 위젯
@@ -228,7 +238,7 @@ class _MainScreenState extends State<MainScreen> {
                             ],
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                   Padding(
