@@ -50,9 +50,7 @@ class _RoutePageState extends State<RoutePage> {
           ),
           centerTitle:  true,
         ),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+        body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

@@ -52,12 +52,6 @@ class _TimePredictState extends State<TimePredict> {
     }
   }
 
-
-  int _month = 3;
-  int _day = 7;
-  int _hour = 0;
-  int _minute = 0;
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -73,166 +67,166 @@ class _TimePredictState extends State<TimePredict> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          '현재 미세먼지',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        FutureBuilder<DustInfo>(
-                          future: fetchDustInfo(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final data = snapshot.data!;
-                              return Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'NOx',
-                                          style: TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          data.nox,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          'SOx',
-                                          style: TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          data.sox,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text('${snapshot.error}',
-                                  style: const TextStyle(
-                                      color: Colors.black)); // 오류 처리
-                            }
-                            // 데이터 로딩 중 표시할 위젯
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        const Text(
-                          '현재 날씨',
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        FutureBuilder<WeatherInfo>(
-                          future: fetchWeatherInfo(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              final data = snapshot.data!;
-                              return Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          '기온',
-                                          style: TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          data.temp,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          '습도',
-                                          style: TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Text(
-                                          data.humidity,
-                                          style: const TextStyle(
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text(
-                                '${snapshot.error}',
-                                style:
-                                const TextStyle(color: Colors.black),
-                              ); // 오류 처리
-                            }
-                            // 데이터 로딩 중 표시할 위젯
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Expanded(
+            //       child: Container(
+            //         padding: const EdgeInsets.all(10),
+            //         decoration: BoxDecoration(
+            //           color: Colors.white,
+            //           borderRadius: BorderRadius.circular(20),
+            //         ),
+            //         child: Column(
+            //           children: [
+            //             const Text(
+            //               '현재 미세먼지',
+            //               style: TextStyle(
+            //                 color: Colors.black,
+            //               ),
+            //             ),
+            //             FutureBuilder<DustInfo>(
+            //               future: fetchDustInfo(),
+            //               builder: (context, snapshot) {
+            //                 if (snapshot.hasData) {
+            //                   final data = snapshot.data!;
+            //                   return Padding(
+            //                     padding: const EdgeInsets.all(20),
+            //                     child: Column(
+            //                       children: [
+            //                         Row(
+            //                           mainAxisAlignment:
+            //                           MainAxisAlignment.center,
+            //                           children: [
+            //                             const Text(
+            //                               'NOx',
+            //                               style: TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                             const SizedBox(width: 10),
+            //                             Text(
+            //                               data.nox,
+            //                               style: const TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                           ],
+            //                         ),
+            //                         Row(
+            //                           mainAxisAlignment:
+            //                           MainAxisAlignment.center,
+            //                           children: [
+            //                             const Text(
+            //                               'SOx',
+            //                               style: TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                             const SizedBox(width: 10),
+            //                             Text(
+            //                               data.sox,
+            //                               style: const TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                           ],
+            //                         ),
+            //                       ],
+            //                     ),
+            //                   );
+            //                 } else if (snapshot.hasError) {
+            //                   return Text('${snapshot.error}',
+            //                       style: const TextStyle(
+            //                           color: Colors.black)); // 오류 처리
+            //                 }
+            //                 // 데이터 로딩 중 표시할 위젯
+            //                 return const Center(
+            //                     child: CircularProgressIndicator());
+            //               },
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(
+            //       width: 10,
+            //     ),
+            //     Expanded(
+            //       child: Container(
+            //         decoration: BoxDecoration(
+            //           color: Colors.white,
+            //           borderRadius: BorderRadius.circular(20),
+            //         ),
+            //         padding: const EdgeInsets.all(10),
+            //         child: Column(
+            //           children: [
+            //             const Text(
+            //               '현재 날씨',
+            //               style: TextStyle(
+            //                 color: Colors.black,
+            //               ),
+            //             ),
+            //             FutureBuilder<WeatherInfo>(
+            //               future: fetchWeatherInfo(),
+            //               builder: (context, snapshot) {
+            //                 if (snapshot.hasData) {
+            //                   final data = snapshot.data!;
+            //                   return Padding(
+            //                     padding: const EdgeInsets.all(20),
+            //                     child: Column(
+            //                       children: [
+            //                         Row(
+            //                           mainAxisAlignment:
+            //                           MainAxisAlignment.center,
+            //                           children: [
+            //                             const Text(
+            //                               '기온',
+            //                               style: TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                             const SizedBox(width: 10),
+            //                             Text(
+            //                               data.temp,
+            //                               style: const TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                           ],
+            //                         ),
+            //                         Row(
+            //                           mainAxisAlignment:
+            //                           MainAxisAlignment.center,
+            //                           children: [
+            //                             const Text(
+            //                               '습도',
+            //                               style: TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                             const SizedBox(width: 10),
+            //                             Text(
+            //                               data.humidity,
+            //                               style: const TextStyle(
+            //                                   color: Colors.black),
+            //                             ),
+            //                           ],
+            //                         ),
+            //                       ],
+            //                     ),
+            //                   );
+            //                 } else if (snapshot.hasError) {
+            //                   return Text(
+            //                     '${snapshot.error}',
+            //                     style:
+            //                     const TextStyle(color: Colors.black),
+            //                   ); // 오류 처리
+            //                 }
+            //                 // 데이터 로딩 중 표시할 위젯
+            //                 return const Center(
+            //                     child: CircularProgressIndicator());
+            //               },
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     )
+            //   ],
+            // ),
             Padding(
               padding: EdgeInsets.symmetric(
                 vertical: height * 0.01,
