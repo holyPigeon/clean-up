@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:kyonggi_project/models/dust_info.dart';
-import 'package:kyonggi_project/models/parking_lot_info.dart';
 import 'package:kyonggi_project/models/weather_info.dart';
 
 Future<WeatherInfo> fetchWeatherInfo() async {

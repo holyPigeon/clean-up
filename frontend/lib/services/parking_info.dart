@@ -2,15 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kyonggi_project/models/parking_lot_info.dart';
 
-Future<List<ParkingLotInfo>> fetchParkingInfo(
-    int month, int day, int hour, int minute) async {
+Future<List<ParkingLotInfo>> fetchParkingInfo() async {
   var headers = {'Content-Type': 'application/json'};
 
   final body = jsonEncode({
-    'month': month.toString(),
-    'day': day.toString(),
-    'hour': hour.toString(),
-    'minute': minute.toString(),
+    'month': 3,
+    'day': 7,
+    'hour': 13,
+    'minute': 30,
   });
   final response = await http.post(
       Uri.parse('http://101.101.217.89:8080/parkinglot/info'),
