@@ -7,8 +7,8 @@ import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByCondi
 import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByDateTime;
 import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByDateTime;
 import com.kyonggi.cleanup.parkinglot.dto.response.ParkingLotInfoResponse;
-import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByCondition;
-import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByCondition;
+import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByCondition;
 import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -78,14 +78,26 @@ public class ParkingLotController {
     /**
      * 특정 주차장 조건 입력 후 2시간 동안의 실제/예측 데이터 조회
      */
-    @PostMapping("/parkinglot/predictByCondition")
-    public ResponseEntity<ResponseHandler<PollutionPredictionResponseByCondition>> getPollutionPrediction2HourByCondition(@RequestBody PollutionPredictRequestByCondition request) {
+    @PostMapping("/parkinglot/predictByCondition/nox")
+    public ResponseEntity<ResponseHandler<NoxPredictionResponseByCondition>> getNoxPrediction2HourByCondition(@RequestBody PollutionPredictRequestByCondition request) {
         return ResponseEntity
                 .ok()
-                .body(ResponseHandler.<PollutionPredictionResponseByCondition>builder()
+                .body(ResponseHandler.<NoxPredictionResponseByCondition>builder()
                         .message("Success")
                         .statusCode(HttpStatus.OK)
-                        .data(parkingLotService.getPollutionPrediction2HourByCondition(request))
+                        .data(parkingLotService.getNoxPrediction2HourByCondition(request))
+                        .build()
+                );
+    }
+
+    @PostMapping("/parkinglot/predictByCondition/sox")
+    public ResponseEntity<ResponseHandler<SoxPredictionResponseByCondition>> getSoxPrediction2HourByCondition(@RequestBody PollutionPredictRequestByCondition request) {
+        return ResponseEntity
+                .ok()
+                .body(ResponseHandler.<SoxPredictionResponseByCondition>builder()
+                        .message("Success")
+                        .statusCode(HttpStatus.OK)
+                        .data(parkingLotService.getSoxPrediction2HourByCondition(request))
                         .build()
                 );
     }

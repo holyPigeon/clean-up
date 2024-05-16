@@ -4,9 +4,9 @@ import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByCondi
 import com.kyonggi.cleanup.parkinglot.dto.request.PollutionPredictRequestByDateTime;
 import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByDateTime;
 import com.kyonggi.cleanup.parkinglot.dto.response.ParkingLotInfoResponse;
-import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByCondition;
-import com.kyonggi.cleanup.parkinglot.dto.response.PollutionPredictionResponseByDateTime;
+import com.kyonggi.cleanup.parkinglot.dto.response.NoxPredictionResponseByCondition;
 import com.kyonggi.cleanup.parkinglot.domain.ParkingLotData;
+import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByCondition;
 import com.kyonggi.cleanup.parkinglot.dto.response.SoxPredictionResponseByDateTime;
 import com.kyonggi.cleanup.parkinglot.infrastructure.ParkingLotInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -94,19 +94,36 @@ public class ParkingLotService {
         return SoxPredictionResponseByDateTime.of(results);
     }
 
-    public PollutionPredictionResponseByCondition getPollutionPrediction2HourByCondition(PollutionPredictRequestByCondition request) {
+    public NoxPredictionResponseByCondition getNoxPrediction2HourByCondition(PollutionPredictRequestByCondition request) {
 
-        List<PollutionPredictionResponseByCondition.Result> results = new ArrayList<>();
+        List<NoxPredictionResponseByCondition.Result> results = new ArrayList<>();
         int passedMinute;
+
+        results.add(NoxPredictionResponseByCondition.Result.of(0, request.getActualExternalNox()));
 
         for (int i = 1; i <= 4; i++) {
             passedMinute = 30 * i;
             double predictedNox = pollutionPredictor.predictNoxByCondition(request, passedMinute);
-            double predictedSox = pollutionPredictor.predictSoxByCondition(request, passedMinute);
-            results.add(PollutionPredictionResponseByCondition.Result.of(passedMinute, predictedNox, predictedSox));
+            results.add(NoxPredictionResponseByCondition.Result.of(passedMinute, predictedNox));
         }
 
-        return PollutionPredictionResponseByCondition.of(results);
+        return NoxPredictionResponseByCondition.of(results);
+    }
+
+    public SoxPredictionResponseByCondition getSoxPrediction2HourByCondition(PollutionPredictRequestByCondition request) {
+
+        List<SoxPredictionResponseByCondition.Result> results = new ArrayList<>();
+        int passedMinute;
+
+        results.add(SoxPredictionResponseByCondition.Result.of(0, request.getActualExternalSox()));
+
+        for (int i = 1; i <= 4; i++) {
+            passedMinute = 30 * i;
+            double predictedSox = pollutionPredictor.predictSoxByCondition(request, passedMinute);
+            results.add(SoxPredictionResponseByCondition.Result.of(passedMinute, predictedSox));
+        }
+
+        return SoxPredictionResponseByCondition.of(results);
     }
 
 
