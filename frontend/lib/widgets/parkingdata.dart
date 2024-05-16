@@ -28,38 +28,45 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ParkingLotInfo>>(
-      future: fetchParkingInfo(month, day, hour, minute),
+      future: fetchParkingInfo(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final data = snapshot.data!;
           return DataTable(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            dataTextStyle: const TextStyle(color: Colors.black),
+            dataRowMinHeight: 30,
+            dataRowMaxHeight: 50,
             columnSpacing: 3,
             columns: <DataColumn>[
               DataColumn(label: Container()),
               const DataColumn(
                   label: Text(
                 '기온\n(°C)',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
               )),
               const DataColumn(
                   label: Text(
                 '습도\n(%)',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
               )),
               const DataColumn(
                   label: Text(
                 'NOx\n(ppm)',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
               )),
               const DataColumn(
                   label: Text(
                 'SOx\n(ppm)',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
               )),
               const DataColumn(
                   label: Text(
-                '차량수',
-                style: TextStyle(color: Colors.black),
+                '차량수\n(대)',
+                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
               )),
             ],
             rows: <DataRow>[
@@ -67,7 +74,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
                 cells: <DataCell>[
                   const DataCell(Text(
                     '외부',
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                   )), // 첫 번째 로우의 새로운 컬럼 값
                   DataCell(Center(
                     child: Text(
@@ -106,7 +113,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
                   const DataCell(Center(
                     child: Text(
                       '내부',
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
                     ),
                   )),
                   DataCell(Center(
@@ -142,9 +149,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
           return Text('${snapshot.error}'); // 오류 처리
         }
         // 데이터 로딩 중 표시할 위젯
-        return Container(
-          child: const Center(child: CircularProgressIndicator()),
-        );
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

@@ -24,7 +24,22 @@ class PollutionCharts extends StatefulWidget {
   State<PollutionCharts> createState() => _PollutionChartsState();
 }
 
+// Widget topTitleWidgets(double value, TitleMeta meta) {
+//   if (value % 1 != 0) {
+//     return Container();
+//   }
+//   const style = TextStyle(
+//     fontWeight: FontWeight.bold,
+//     color: Colors.orange,
+//   );
+//   return SideTitleWidget(
+//     axisSide: meta.axisSide,
+//     child: Text(value.toInt().toString(), style: const TextStyle(fontSize: 10,color: Colors.black))
+//   );
+// }
+
 class _PollutionChartsState extends State<PollutionCharts> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +55,32 @@ class _PollutionChartsState extends State<PollutionCharts> {
                 final data = snapshot.data!;
                 return Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: LineChart(_noxChart(data)),
+                  child: LineChart(
+                    LineChartData(
+                      lineBarsData: [
+                        LineChartBarData(
+                          spots: _noxDataPoints(data),
+                          color: Colors.red,
+                        ),
+                      ],
+                      gridData: const FlGridData(show: true),
+                      titlesData: const FlTitlesData(
+                        show: true,
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                      ),
+                    ),
+                  ),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}',
