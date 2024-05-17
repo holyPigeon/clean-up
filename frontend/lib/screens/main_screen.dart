@@ -340,7 +340,7 @@ class _MainScreenState extends State<MainScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Text(data[0].humidity.toString(),style: TextStyle(color: Colors.black,fontSize: 20))
+                                    Text(data[0].humidity.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
                                   ],
                                 ),
                               ),
@@ -351,7 +351,7 @@ class _MainScreenState extends State<MainScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Text(data[0].carCount.toString(),style: TextStyle(color: Colors.black,fontSize: 20))
+                                    Text(data[0].carCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
                                   ],
                                 ),
                               ),
@@ -369,7 +369,7 @@ class _MainScreenState extends State<MainScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Text(data[0].nox.toString(),style: TextStyle(color: Colors.black,fontSize: 20))
+                                    Text(data[0].nox.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
                                   ],
                                 ),
                               ),
@@ -380,7 +380,7 @@ class _MainScreenState extends State<MainScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    Text(data[0].sox.toString(),style: TextStyle(color: Colors.black,fontSize: 20))
+                                    Text(data[0].sox.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
                                   ],
                                 ),
                               ),
