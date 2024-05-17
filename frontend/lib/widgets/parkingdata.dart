@@ -28,7 +28,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ParkingLotInfo>>(
-      future: fetchParkingInfo(),
+      future: fetchParkingInfo(month, day, hour, minute),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final data = snapshot.data!;

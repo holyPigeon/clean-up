@@ -181,10 +181,10 @@ class _TimePredictState extends State<TimePredict> {
               width: width,
               height: height * 0.18,
               widget: ParkingDataWidget(
-                month: _month,
-                day: _day,
-                hour: _hour,
-                minute: _minute,
+                month: month,
+                day: day,
+                hour: hour,
+                minute: minute,
               ),
             ),
             const SizedBox(

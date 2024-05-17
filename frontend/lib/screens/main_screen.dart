@@ -326,7 +326,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 10,
                 ),
                 FutureBuilder<List<ParkingLotInfo>>(
-                  future: fetchParkingInfo(),
+                  future: fetchParkingInfo(4,30,23,30),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       final data = snapshot.data!;
