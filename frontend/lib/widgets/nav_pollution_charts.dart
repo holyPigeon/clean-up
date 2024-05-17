@@ -61,6 +61,9 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       barrierDismissible: false,
+      cancelText: '취소',
+      confirmText: '확인',
+      locale: const Locale('ko', 'KR'),
       context: context,
       initialDate: DateTime(2024, 3, 7),
       firstDate: DateTime(2024, 3, 7),
