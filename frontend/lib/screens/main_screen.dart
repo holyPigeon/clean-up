@@ -38,6 +38,12 @@ class _MainScreenState extends State<MainScreen> {
             width: double.infinity,
             child: Text("현재 주차장 외부 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
           ),
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              "마지막 조회 : ${DateTime.now().year}년 ${DateTime.now().month}월 ${DateTime.now().day}일 ${DateTime.now().hour}시 ${DateTime.now().minute}분"
+              ,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -289,7 +295,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
           const SizedBox(
             width: double.infinity,
-            child: Text("지금 주차장 내부 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+            child: Text("주차장 내부 측정 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+          ),
+          const SizedBox(
+            width: double.infinity,
+            child: Text(
+              "마지막 조회 : 2024년 4월 30일 23시 30분"
+              ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
           ),
           const SizedBox(
             height: 10,

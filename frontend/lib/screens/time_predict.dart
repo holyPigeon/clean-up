@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/parkingdata.dart';
@@ -64,66 +65,117 @@ class _TimePredictState extends State<TimePredict> {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: height * 0.01,
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '시간 지정',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              )
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
               ),
-              child: Row(
-                children: [
-                  ElevatedButton(
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Center(
+                child: Text(
+                  '$month월 $day일 $hour시 $minute분',
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
                     onPressed: () {
                       _selectDate(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black, backgroundColor: Colors.white,
+                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
-                    child: const Text('날짜선택', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                    child: const Text('🗓️날짜 변경', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
                   ),
-                  const SizedBox(width: 10),
-                  ElevatedButton(
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: ElevatedButton(
                     onPressed: () {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return Dialog(
-                            child: Box(
-                              width: width * 0.8,
-                              height: height * 0.2,
-                              widget: _selectTime(context),
-                            ),
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Dialog(
+                                child: _selectTime(context),
+                              )
+                            ],
                           );
                         },
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black, backgroundColor: Colors.white,
+                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
-                    child: const Text('시간선택', style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+                    child: const Text('⏰시각 변경', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16)),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Center(
-                          child: Text(
-                            '$_month월 $_day일 $_hour시 $_minute분',
-                            style: const TextStyle(
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '예측 결과 - 표',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Box(
               width: width,
@@ -136,7 +188,28 @@ class _TimePredictState extends State<TimePredict> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 15,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '예측 결과 - 그래프',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Box(
               width: width,

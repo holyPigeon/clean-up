@@ -10,10 +10,10 @@ class ParkingLotPredict extends StatefulWidget {
 
 class _ParkingLotPredictState extends State<ParkingLotPredict> {
 
-  int _month = 3;
-  int _day = 7;
-  int _hour = 0;
-  int _minute = 0;
+  final int _month = 3;
+  final int _day = 7;
+  final int _hour = 0;
+  final int _minute = 0;
 
   @override
   Widget build(BuildContext context) {

@@ -6,9 +6,9 @@ Future<List<ParkingLotInfo>> fetchParkingInfo() async {
   var headers = {'Content-Type': 'application/json'};
 
   final body = jsonEncode({
-    'month': 3,
-    'day': 7,
-    'hour': 13,
+    'month': 4,
+    'day': 30,
+    'hour': 23,
     'minute': 30,
   });
   final response = await http.post(

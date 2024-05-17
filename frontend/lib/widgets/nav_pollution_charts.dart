@@ -88,6 +88,27 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '예측 값 지정',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -96,7 +117,13 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                     onPressed: () {
                       _selectDate(context);
                     },
-                    child: const Text('날짜 입력'),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: const Text('날짜', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 const SizedBox(
@@ -104,6 +131,12 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 ),
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -121,14 +154,21 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                         },
                       );
                     },
-                    child: const Text('시간 입력'),
+                    child: const Text('시간', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Expanded(
+                  flex: 2,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -139,10 +179,31 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                         },
                       );
                     },
-                    child: const Text("조건 입력"),
+                    child: const Text("상세 조건 입력", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                   ),
                 )
               ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '예측 결과',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
             ),
             const SizedBox(
               height: 10,
