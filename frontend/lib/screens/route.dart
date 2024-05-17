@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kyonggi_project/screens/parking_lot_predict.dart';
 import 'package:kyonggi_project/screens/time_predict.dart';
+import '../oss/oss_page.dart';
 import 'chart_example.dart';
 import 'main_screen.dart';
 
@@ -50,6 +51,17 @@ class _RoutePageState extends State<RoutePage> {
             width: 130,
           ),
           centerTitle:  true,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.info),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const OssLicensesPage()),
+                );
+              },
+            ),
+          ],
         ),
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(

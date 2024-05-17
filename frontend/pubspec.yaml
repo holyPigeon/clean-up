@@ -41,6 +41,7 @@ dependencies:
   intl: any
   fluttertoast: ^8.2.5
   flutter_oss_licenses: ^3.0.2
+  url_launcher: ^6.2.6
   flutter_localizations:
     sdk: flutter
 
