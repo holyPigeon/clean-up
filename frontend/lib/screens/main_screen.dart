@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
         children: [
           const SizedBox(
             width: double.infinity,
-            child: Text("지금 주차장 외부 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+            child: Text("현재 주차장 외부 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
           ),
           const SizedBox(
             height: 10,
