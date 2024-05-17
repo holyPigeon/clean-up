@@ -86,45 +86,58 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    _selectDate(context);
-                  },
-                  child: const Text('Date'),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _selectDate(context);
+                    },
+                    child: const Text('날짜 입력'),
+                  ),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Dialog(
-                          child: Box(
-                            width: width * 0.8,
-                            height: height * 0.2,
-                            widget: _selectTime(context),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                  child: const Text('Time'),
+                const SizedBox(
+                  width: 10,
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const Dialog(
-                            child: InputInfos()
-                        );
-                      },
-                    );
-                  },
-                  child: const Text("Infos"),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Dialog(
+                                child: _selectTime(context)
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const Text('시간 입력'),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const Dialog(
+                              child: InputInfos()
+                          );
+                        },
+                      );
+                    },
+                    child: const Text("조건 입력"),
+                  ),
                 )
               ],
             ),
