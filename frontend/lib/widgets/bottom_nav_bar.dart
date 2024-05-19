@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyonggi_project/widgets/box.dart';
-import 'package:kyonggi_project/widgets/input_infos.dart';
 import 'package:kyonggi_project/widgets/nav_pollution_charts.dart';
 
 class BottomNavBar extends StatefulWidget {

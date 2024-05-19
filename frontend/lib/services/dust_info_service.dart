@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kyonggi_project/models/dust_info.dart';
-import 'package:kyonggi_project/models/parking_lot_info.dart';
 
 Future<DustInfo> fetchDustInfo() async {
   final response = await http.get(

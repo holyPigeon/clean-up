@@ -1,19 +1,15 @@
 // ignore_for_file: prefer_final_fields
-import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kyonggi_project/models/predicted_sox.dart';
-import 'package:kyonggi_project/services/actual_sox.dart';
 import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/input_infos.dart';
 import '../models/dust_info.dart';
 import '../models/parking_lot_predicted_nox.dart';
 import '../models/parking_lot_predicted_sox.dart';
 import '../models/weather_info.dart';
-import '../screens/time_predict.dart';
 import '../services/dust_info_service.dart';
 import '../services/parking_lot_predict.dart';
 import '../services/weather_info.dart';

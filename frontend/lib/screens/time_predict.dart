@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/parkingdata.dart';
 import 'package:kyonggi_project/widgets/pollution_chart.dart';
 

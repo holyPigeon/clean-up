@@ -1,11 +1,8 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kyonggi_project/services/parking_lot_predict.dart';
 import '../models/dust_info.dart';
 import '../models/weather_info.dart';
-import 'nav_pollution_charts.dart';
 
 class InputInfos extends StatefulWidget {
   const InputInfos({
