@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color.fromRGBO(135, 206, 235, 1),
-        textTheme: Typography.whiteCupertino,
       ),
       home: const RoutePage(),
     );

@@ -193,7 +193,7 @@ class _TimePredictState extends State<TimePredict> {
             Container(
               alignment: Alignment.centerLeft,
               child: const Text(
-                '예측 결과 - 그래프',
+                '예측 결과 비교 그래프',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -211,16 +211,82 @@ class _TimePredictState extends State<TimePredict> {
             const SizedBox(
               height: 10,
             ),
-            Box(
-              width: width,
-              height: height * 0.5,
-              widget: PollutionCharts(
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Text(
+                    'NOx 현재 값',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Text(
+                    'SOx 현재 값',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Text(
+                    '예측 값',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text("그래프를 손으로 터치하면 해당 시간의 값이 나옵니다.",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: const EdgeInsets.all(10),
+              width: double.infinity,
+              child: PollutionCharts(
                 month: _month,
                 day: _day,
                 hour: _hour,
                 minute: _minute,
               ),
-            ),
+            )
           ],
         ),
       ),

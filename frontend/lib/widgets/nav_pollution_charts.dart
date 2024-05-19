@@ -438,26 +438,33 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                               color: Colors.red,
                             ),
                           ],
-                          baselineX: 0,
-                          baselineY: 0,
+                          // X는 최대 4칸
+                          minX: 0,
+                          maxX: 120,
                           extraLinesData: ExtraLinesData(horizontalLines: [HorizontalLine(y: 0),], verticalLines: [VerticalLine(x: 0)]),
-                          gridData: const FlGridData(show: true),
+                          gridData: const FlGridData(
+                              show: true,
+                          ),
                           titlesData: const FlTitlesData(
                             show: true,
                             bottomTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: true),
-                              axisNameWidget: Text("~분 후", style: const TextStyle(color: Colors.black)),
-                              axisNameSize: 20,
+                              axisNameWidget: Text("~분 후", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                getTitlesWidget: getBottomTitles,
+                                interval: 20,
+                                reservedSize: 30,
+                              ),
                             ),
                             leftTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
                             ),
                             rightTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
                             ),
                             topTitles: AxisTitles(
-                              sideTitles: SideTitles(showTitles: false),
-                            ),
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
+                          ),
                           ),
                         ),
                       ),
@@ -506,7 +513,44 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                     final data = snapshot.data!;
                     return Padding(
                       padding: const EdgeInsets.all(20),
-                      child: LineChart(_soxChart(data)),
+                      child: LineChart(
+                        LineChartData(
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: _soxDataPoints(data),
+                              color: Colors.blue,
+                            ),
+                          ],
+                          // X는 최대 4칸
+                          minX: 0,
+                          maxX: 120,
+                          extraLinesData: ExtraLinesData(horizontalLines: [HorizontalLine(y: 0),], verticalLines: [VerticalLine(x: 0)]),
+                          gridData: const FlGridData(
+                            show: true,
+                          ),
+                          titlesData: const FlTitlesData(
+                            show: true,
+                            bottomTitles: AxisTitles(
+                              axisNameWidget: Text("~분 후", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                getTitlesWidget: getBottomTitles,
+                                interval: 20,
+                                reservedSize: 30,
+                              ),
+                            ),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   } else if (snapshot.hasError) {
                     return Text(
@@ -597,4 +641,25 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
       ),
     );
   }
+}
+
+Widget getBottomTitles(double value, TitleMeta meta) {
+  print(value);
+  Widget text;
+  switch (value.toInt()) {
+    case 0:
+      text = Text("0");
+      break;
+    case 60:
+      text = Text("60");
+      break;
+    case 120:
+      text = Text("120");
+      break;
+    default:
+      text = Text(" ");
+      break;
+  }
+
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }

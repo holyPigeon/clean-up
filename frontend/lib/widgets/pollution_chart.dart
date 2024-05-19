@@ -24,20 +24,6 @@ class PollutionCharts extends StatefulWidget {
   State<PollutionCharts> createState() => _PollutionChartsState();
 }
 
-// Widget topTitleWidgets(double value, TitleMeta meta) {
-//   if (value % 1 != 0) {
-//     return Container();
-//   }
-//   const style = TextStyle(
-//     fontWeight: FontWeight.bold,
-//     color: Colors.orange,
-//   );
-//   return SideTitleWidget(
-//     axisSide: meta.axisSide,
-//     child: Text(value.toInt().toString(), style: const TextStyle(fontSize: 10,color: Colors.black))
-//   );
-// }
-
 class _PollutionChartsState extends State<PollutionCharts> {
 
   @override
@@ -59,15 +45,48 @@ class _PollutionChartsState extends State<PollutionCharts> {
                     LineChartData(
                       lineBarsData: [
                         LineChartBarData(
-                          spots: _noxDataPoints(data),
+                          spots: _actualNoxDataPoints(data),
                           color: Colors.red,
                         ),
+                        LineChartBarData(
+                          spots: _PredictedNoxDataPoints(data),
+                          color: Colors.orange,
+                        ),
                       ],
+                      borderData: FlBorderData(
+                        show: true,
+                        border: const Border(
+                          bottom: BorderSide(
+                            color: Colors.black,
+                            width: 3,
+                          ),
+                          left: BorderSide(
+                            color: Colors.black,
+                            width: 3,
+                          ),
+                          right: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                          ),
+                          top: BorderSide(
+                            color: Colors.black,
+                            width: 1,
+                          ),
+                        ),
+                      ),
                       gridData: const FlGridData(show: true),
                       titlesData: const FlTitlesData(
                         show: true,
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
+                          axisNameWidget: Text(
+                            '지정한 시간부터 30분 간격으로 예측한 NOx(주황색)값과 실제 NOx(파란색)값',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          axisNameSize: 20,
                         ),
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
@@ -119,7 +138,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
   }
 
 //LineChart(_noxChart(data)),
-  List<FlSpot> _soxDataPoints(List<PredictedSox> data) {
+  List<FlSpot> _actualSoxDataPoints(List<PredictedSox> data) {
     return data
         .map((data) => FlSpot(
               data.minute * 60.toDouble() +
@@ -133,7 +152,21 @@ class _PollutionChartsState extends State<PollutionCharts> {
         .toList();
   }
 
-  List<FlSpot> _noxDataPoints(List<PredictedNox> data) {
+  List<FlSpot> _predictedSoxDataPoints(List<PredictedSox> data) {
+    return data
+        .map((data) => FlSpot(
+      data.minute * 60.toDouble() +
+          data.hour * 60 * 60.toDouble() +
+          data.day *
+              24 *
+              60 *
+              60.toDouble(), // Calculate milliseconds since epoch
+      data.predictedSox,
+    ))
+        .toList();
+  }
+
+  List<FlSpot> _actualNoxDataPoints(List<PredictedNox> data) {
     return data
         .map((data) => FlSpot(
               data.minute * 60.toDouble() +
@@ -147,45 +180,66 @@ class _PollutionChartsState extends State<PollutionCharts> {
         .toList();
   }
 
+  List<FlSpot> _PredictedNoxDataPoints(List<PredictedNox> data) {
+    return data
+        .map((data) => FlSpot(
+      data.minute * 60.toDouble() +
+          data.hour * 60 * 60.toDouble() +
+          data.day *
+              24 *
+              60 *
+              60.toDouble(), // Calculate milliseconds since epoch
+      data.predictedNox,
+    ))
+        .toList();
+  }
+
   LineChartData _soxChart(List<PredictedSox> data) {
     return LineChartData(
       lineBarsData: [
         LineChartBarData(
-          spots: _soxDataPoints(data),
+          spots: _actualSoxDataPoints(data),
           color: Colors.blue,
         ),
+        LineChartBarData(
+          spots: _predictedSoxDataPoints(data),
+          color: Colors.orange,
+        ),
       ],
+      borderData: FlBorderData(
+        show: true,
+        border: const Border(
+          bottom: BorderSide(
+            color: Colors.black,
+            width: 3,
+          ),
+          left: BorderSide(
+            color: Colors.black,
+            width: 3,
+          ),
+          right: BorderSide(
+            color: Colors.black,
+            width: 1,
+          ),
+          top: BorderSide(
+            color: Colors.black,
+            width: 1,
+          ),
+        ),
+      ),
       gridData: const FlGridData(show: true),
       titlesData: const FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
-        ),
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
-        ),
-        topTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
-        ),
-      ),
-    );
-  }
-
-  LineChartData _noxChart(List<PredictedNox> data) {
-    return LineChartData(
-      lineBarsData: [
-        LineChartBarData(
-          spots: _noxDataPoints(data),
-          color: Colors.red,
-        ),
-      ],
-      titlesData: const FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+          axisNameWidget: Text(
+            '지정한 시간부터 30분 간격으로 예측한 SOx(주황색)값과 실제 SOx(파란색)값',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          axisNameSize: 20,
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
