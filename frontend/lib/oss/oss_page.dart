@@ -51,7 +51,7 @@ class OssLicensesPage extends StatelessWidget {
                     final package = snapshot.data![index];
                     return ListTile(
                       title: Text('${package.name} ${package.version}'),
-                      subtitle: package.description.isNotEmpty ? Text(package.description) : null,
+                      subtitle: package.description.isNotEmpty ? Text(package.description,style: const TextStyle(color: Colors.black),) : null,
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(

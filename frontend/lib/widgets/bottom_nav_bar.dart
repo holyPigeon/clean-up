@@ -138,23 +138,23 @@ class _BottomNavBarState extends State<BottomNavBar> {
                             child: const Text('Time'),
                           ),
                           const SizedBox(width: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    child: Box(
-                                      width: width * 0.8,
-                                      height: height * 0.55,
-                                      widget: const InputInfos(),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            child: const Text("Infos"),
-                          )
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context) {
+                          //         return Dialog(
+                          //           child: Box(
+                          //             width: width * 0.8,
+                          //             height: height * 0.55,
+                          //             widget: const InputInfos(),
+                          //           ),
+                          //         );
+                          //       },
+                          //     );
+                          //   },
+                          //   child: const Text("Infos"),
+                          // )
                         ],
                       ),
                       SizedBox(height: height * 0.01),

@@ -1,27 +1,61 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kyonggi_project/services/parking_lot_predict.dart';
+import '../models/dust_info.dart';
+import '../models/weather_info.dart';
+import 'nav_pollution_charts.dart';
 
 class InputInfos extends StatefulWidget {
-  const InputInfos({super.key});
+  const InputInfos({
+    super.key,
+    this.hour,
+    this.minute,
+    required this.dustInfoResult,
+    required this.outSideDataResult,
+  });
+  final hour;
+  final minute;
+  final DustInfo dustInfoResult;
+  final WeatherInfo outSideDataResult;
 
   @override
   State<InputInfos> createState() => _InputInfosState();
 }
 
 class _InputInfosState extends State<InputInfos> {
-  final _outSideTemperatureController = TextEditingController();
-  final _inSideTemperatureController = TextEditingController();
-  final _outSideHumidityController = TextEditingController();
-  final _inSideHumidityController = TextEditingController();
-  final _outSideNoxController = TextEditingController();
-  final _outSideSoxController = TextEditingController();
-  final _insideNoxController = TextEditingController();
-  final _insideSoxController = TextEditingController();
-  final _dieselCarRatioController = TextEditingController();
-  final _carCountController = TextEditingController();
+
+  final outSideTemperatureController = TextEditingController();
+  final inSideTemperatureController = TextEditingController();
+  final outSideHumidityController = TextEditingController();
+  final inSideHumidityController = TextEditingController();
+  final outSideNoxController = TextEditingController();
+  final outSideSoxController = TextEditingController();
+  final insideNoxController = TextEditingController();
+  final insideSoxController = TextEditingController();
+  final dieselCarRatioController = TextEditingController();
+  final carCountController = TextEditingController();
 
   bool _canSubmit = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      outSideTemperatureController.text = widget.outSideDataResult.temp.toString();
+      outSideHumidityController.text = widget.outSideDataResult.humidity.toString();
+      outSideNoxController.text = widget.dustInfoResult.nox.toString();
+      outSideSoxController.text = widget.dustInfoResult.sox.toString();
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +65,19 @@ class _InputInfosState extends State<InputInfos> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Text(
+              '설정된 시간: ${widget.hour}시 ${widget.minute}분',
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
             Row(
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _inSideTemperatureController,
+                    controller: inSideTemperatureController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '내부온도',
@@ -51,7 +93,7 @@ class _InputInfosState extends State<InputInfos> {
                 ),
                 Expanded(
                   child: TextField(
-                    controller: _outSideTemperatureController,
+                    controller: outSideTemperatureController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '외부온도',
@@ -69,7 +111,7 @@ class _InputInfosState extends State<InputInfos> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller:  _inSideHumidityController,
+                    controller:  inSideHumidityController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '내부습도',
@@ -85,7 +127,7 @@ class _InputInfosState extends State<InputInfos> {
                 ),
                 Expanded(
                   child: TextField(
-                    controller: _outSideHumidityController,
+                    controller: outSideHumidityController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '외부습도',
@@ -103,7 +145,7 @@ class _InputInfosState extends State<InputInfos> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller:  _insideSoxController,
+                    controller:  insideSoxController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '내부 SOx',
@@ -119,10 +161,10 @@ class _InputInfosState extends State<InputInfos> {
                 ),
                 Expanded(
                   child: TextField(
-                    controller: _outSideSoxController,
+                    controller: outSideSoxController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
-                      labelText: '.외부 SOx',
+                      labelText: '외부 SOx',
                     ),
                     keyboardType: TextInputType.number,
                     onChanged: (text) {
@@ -137,7 +179,7 @@ class _InputInfosState extends State<InputInfos> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _insideNoxController,
+                    controller: insideNoxController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '내부 NOx',
@@ -153,7 +195,7 @@ class _InputInfosState extends State<InputInfos> {
                 ),
                 Expanded(
                   child: TextField(
-                    controller: _outSideNoxController,
+                    controller: outSideNoxController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '외부 NOx',
@@ -171,7 +213,7 @@ class _InputInfosState extends State<InputInfos> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _carCountController,
+                    controller: carCountController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '차량대 수',
@@ -187,7 +229,7 @@ class _InputInfosState extends State<InputInfos> {
                 ),
                 Expanded(
                   child: TextField(
-                    controller: _dieselCarRatioController,
+                    controller: dieselCarRatioController,
                     style: const TextStyle(color: Colors.black),
                     decoration: const InputDecoration(
                       labelText: '경유차 비율',
@@ -232,39 +274,17 @@ class _InputInfosState extends State<InputInfos> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    onPressed: (){
-                      if(_inSideTemperatureController.text.isNotEmpty &&
-                          _outSideTemperatureController.text.isNotEmpty &&
-                          _inSideHumidityController.text.isNotEmpty &&
-                          _outSideHumidityController.text.isNotEmpty &&
-                          _insideSoxController.text.isNotEmpty &&
-                          _outSideSoxController.text.isNotEmpty &&
-                          _insideNoxController.text.isNotEmpty &&
-                          _outSideNoxController.text.isNotEmpty &&
-                          _carCountController.text.isNotEmpty &&
-                          _dieselCarRatioController.text.isNotEmpty){
-                        setState(() {
-                          _canSubmit = true;
-                        });
+                    onPressed: ()async{
+                      log("확인 버튼 눌림");
+                      carCount = int.parse(carCountController.text);
+                      dieselCarRatio = double.parse(dieselCarRatioController.text);
+                      inSideTemperature = double.parse(inSideTemperatureController.text);
+                      inSideHumidity = double.parse(inSideHumidityController.text);
+                      insideNox = double.parse(insideNoxController.text);
+                      insideSox = double.parse(insideSoxController.text);
+                      setState(() {
                         Navigator.pop(context);
-                      }else{
-                        Fluttertoast.showToast(
-                            msg: "모든 값을 입력해주세요.",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0
-                        );
-                      }
-                      // int temperature =
-                      //     int.tryParse(_temperatureController.text) ?? 0;
-                      // int humidity = int.tryParse(_humidityController.text) ?? 0;
-                      // int vehicleCount =
-                      //     int.tryParse(_vehicleCountController.text) ?? 0;
-                      // double nox = double.tryParse(_noxController.text) ?? 0.0;
-                      // double sox = double.tryParse(_soxController.text) ?? 0.0;
+                      });
                     },
                     child: const Text('확인',
                       style: TextStyle(

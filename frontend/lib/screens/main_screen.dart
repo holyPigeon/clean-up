@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
-
 import '../models/dust_info.dart';
 import '../models/parking_lot_info.dart';
 import '../models/weather_info.dart';
@@ -82,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                             return Container(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                data.temp,
+                                data.temp.toString(),
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -141,7 +140,7 @@ class _MainScreenState extends State<MainScreen> {
                             return Container(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                data.humidity,
+                                data.humidity.toString(),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -205,7 +204,7 @@ class _MainScreenState extends State<MainScreen> {
                             return Container(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                data.nox,
+                                data.nox.toString(),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,

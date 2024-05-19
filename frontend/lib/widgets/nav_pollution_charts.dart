@@ -1,15 +1,27 @@
 // ignore_for_file: prefer_final_fields
+import 'dart:developer';
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kyonggi_project/models/predicted_nox.dart';
 import 'package:kyonggi_project/models/predicted_sox.dart';
-import 'package:kyonggi_project/services/actual_nox.dart';
 import 'package:kyonggi_project/services/actual_sox.dart';
 import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/input_infos.dart';
+import '../models/dust_info.dart';
+import '../models/parking_lot_predicted_nox.dart';
+import '../models/weather_info.dart';
 import '../screens/time_predict.dart';
+import '../services/dust_info_service.dart';
+import '../services/parking_lot_predict.dart';
+import '../services/weather_info.dart';
+
+double? inSideTemperature;
+double? inSideHumidity;
+double? insideNox;
+double? insideSox;
+double? dieselCarRatio;
+int? carCount;
 
 class NavPollutionCharts extends StatefulWidget {
   final int month;
@@ -29,19 +41,28 @@ class NavPollutionCharts extends StatefulWidget {
   State<NavPollutionCharts> createState() => _PollutionChartsState();
 }
 
+int _hour = 0;
+int _minute = 0;
+
 class _PollutionChartsState extends State<NavPollutionCharts> {
-  int _month = 3;
-  int _day = 7;
-  int _hour = 0;
-  int _minute = 0;
+
   @override
   void dispose() {
     super.dispose();
   }
 
+  late WeatherInfo _outSideDataResult;
+  late DustInfo _dustInfoResult;
+
+  Function? func;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      _outSideDataResult = await fetchWeatherInfo();
+      _dustInfoResult = await fetchDustInfo();
+    });
   }
 
   Widget _selectTime(BuildContext context) {
@@ -51,31 +72,11 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
       onTimerDurationChanged: (value) {
         setState(() {
           //_timeAPIRequest(value.inHours, value.inMinutes % 60);
-          hour = value.inHours;
-          minute = value.inMinutes % 60;
+          _hour = value.inHours;
+          _minute = value.inMinutes % 60;
         });
       },
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      barrierDismissible: false,
-      cancelText: '취소',
-      confirmText: '확인',
-      locale: const Locale('ko', 'KR'),
-      context: context,
-      initialDate: DateTime(2024, 3, 7),
-      firstDate: DateTime(2024, 3, 7),
-      lastDate: DateTime(2024, 4, 30),
-    );
-    if (pickedDate != null) {
-      //_dateAPIRequest(pickedDate.month, pickedDate.day);
-      setState(() {
-        month = pickedDate.month;
-        day = pickedDate.day;
-      });
-    }
   }
 
   @override
@@ -112,23 +113,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _selectDate(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    child: const Text('날짜', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -173,8 +157,9 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return const Dialog(
-                              child: InputInfos()
+                          return AlertDialog(
+                            content: InputInfos(hour: _hour,minute: _minute,dustInfoResult: _dustInfoResult,outSideDataResult: _outSideDataResult,),
+
                           );
                         },
                       );
@@ -211,8 +196,17 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
             Box(
               width: width,
               height: height / 3,
-              widget: FutureBuilder<List<PredictedNox>>(
-                future: fetchNox(month, day, hour, minute),
+              widget: FutureBuilder<List<PrakingLotPredictedNox>>(
+                future: fetchParkingLotPredictNox(
+                  _hour,
+                  _minute,
+                  carCount ?? 0,
+                  dieselCarRatio ?? 0.0,
+                  inSideTemperature ?? 0.0,
+                  inSideHumidity ?? 0.0,
+                  insideNox ?? 0.0,
+                  insideSox ?? 0.0,
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final data = snapshot.data!;
@@ -274,15 +268,10 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
         .toList();
   }
 
-  List<FlSpot> _noxDataPoints(List<PredictedNox> data) {
+  List<FlSpot> _noxDataPoints(List<PrakingLotPredictedNox> data) {
     return data
         .map((data) => FlSpot(
-              data.minute * 60.toDouble() +
-                  data.hour * 60 * 60.toDouble() +
-                  data.day *
-                      24 *
-                      60 *
-                      60.toDouble(), // Calculate milliseconds since epoch
+              data.passedMinute, // Calculate milliseconds since epoch
               data.predictedNox,
             ))
         .toList();
@@ -315,7 +304,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
     );
   }
 
-  LineChartData _noxChart(List<PredictedNox> data) {
+  LineChartData _noxChart(List<PrakingLotPredictedNox> data) {
     return LineChartData(
       lineBarsData: [
         LineChartBarData(
