@@ -19,7 +19,10 @@ alterDialogSetState({
           builder: (BuildContext context, StateSetter setDialog) {
             return AlertDialog(
               actionsPadding: const EdgeInsets.only(bottom: 5),
-              content: InputInfos(hour: parkingLotpredictHour,minute: parkingLotpredictMinute,dustInfoResult: dustInfoResult,outSideDataResult: outSideDataResult,),
+              content: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: InputInfos(hour: parkingLotpredictHour,minute: parkingLotpredictMinute,dustInfoResult: dustInfoResult,outSideDataResult: outSideDataResult,),
+              ),
               actions: [
                 const Divider(thickness: 1.5),
                 Row(

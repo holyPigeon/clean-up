@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kyonggi_project/models/predicted_sox.dart';
 import 'package:kyonggi_project/services/actual_sox.dart';
 import 'package:kyonggi_project/widgets/box.dart';
@@ -164,19 +165,32 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                     onPressed: () => alterDialogSetState(
                     context: context,
                     confirmPressed: () {
-                      setState(() {
-                        carCount = int.parse(carCountController.text);
-                        dieselCarRatio = double.parse(dieselCarRatioController.text);
-                        inSideTemperature = double.parse(inSideTemperatureController.text);
-                        inSideHumidity = double.parse(inSideHumidityController.text);
-                        insideNox = double.parse(insideNoxController.text);
-                        insideSox = double.parse(insideSoxController.text);
-                        outSideTemperature = double.parse(outSideTemperatureController.text);
-                        outSideHumidity = double.parse(outSideHumidityController.text);
-                        outSideNox = double.parse(outSideNoxController.text);
-                        outSideSox = double.parse(outSideSoxController.text);
-                        Navigator.pop(context);
-                      });
+                      if(carCountController.text.isEmpty || dieselCarRatioController.text.isEmpty || inSideTemperatureController.text.isEmpty || inSideHumidityController.text.isEmpty || insideNoxController.text.isEmpty || insideSoxController.text.isEmpty || outSideTemperatureController.text.isEmpty || outSideHumidityController.text.isEmpty || outSideNoxController.text.isEmpty || outSideSoxController.text.isEmpty) {
+                        // 토스트 메시지
+                        Fluttertoast.showToast(
+                          msg: "모든 값을 입력해주세요.",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                        );
+                      }else{
+                        setState(() {
+                          carCount = int.parse(carCountController.text);
+                          dieselCarRatio = double.parse(dieselCarRatioController.text);
+                          inSideTemperature = double.parse(inSideTemperatureController.text);
+                          inSideHumidity = double.parse(inSideHumidityController.text);
+                          insideNox = double.parse(insideNoxController.text);
+                          insideSox = double.parse(insideSoxController.text);
+                          outSideTemperature = double.parse(outSideTemperatureController.text);
+                          outSideHumidity = double.parse(outSideHumidityController.text);
+                          outSideNox = double.parse(outSideNoxController.text);
+                          outSideSox = double.parse(outSideSoxController.text);
+                          Navigator.pop(context);
+                        });
+                      }
                     },
                     closePressed: () {
                       setState(() {
@@ -382,6 +396,17 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
             const SizedBox(
               height: 10,
             ),
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.redAccent.shade200,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child:const Text("예측된 NOx", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
             Box(
               width: width,
               height: height / 3,
@@ -405,7 +430,37 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                     final data = snapshot.data!;
                     return Padding(
                       padding: const EdgeInsets.all(20),
-                      child: LineChart(_noxChart(data)),
+                      child: LineChart(
+                        LineChartData(
+                          lineBarsData: [
+                            LineChartBarData(
+                              spots: _noxDataPoints(data),
+                              color: Colors.red,
+                            ),
+                          ],
+                          baselineX: 0,
+                          baselineY: 0,
+                          extraLinesData: ExtraLinesData(horizontalLines: [HorizontalLine(y: 0),], verticalLines: [VerticalLine(x: 0)]),
+                          gridData: const FlGridData(show: true),
+                          titlesData: const FlTitlesData(
+                            show: true,
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: true),
+                              axisNameWidget: Text("~분 후", style: const TextStyle(color: Colors.black)),
+                              axisNameSize: 20,
+                            ),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}',
@@ -417,6 +472,17 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
               ),
             ),
             const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.blueAccent.shade200,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child:const Text("예측된 SOx", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
             Box(
               width: width,
               height: height / 3,
