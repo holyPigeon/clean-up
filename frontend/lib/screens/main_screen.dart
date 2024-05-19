@@ -28,20 +28,31 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
+      physics: const ScrollPhysics(),
       padding: const EdgeInsets.all(20),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            width: double.infinity,
-            child: Text("현재 주차장 외부 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+          Container(
+            padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5,right: 10),
+            margin: const EdgeInsets.only(bottom: 10),
+            decoration: BoxDecoration(
+              color: Colors.blueAccent,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: const Text("주차장 외부 측정 정보 (실시간)",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+          ),
+          const Divider(
+            color: Colors.white,
+            height: 1,
           ),
           SizedBox(
             width: double.infinity,
             child: Text(
               "마지막 조회 : ${DateTime.now().year}년 ${DateTime.now().month}월 ${DateTime.now().day}일 ${DateTime.now().hour}시 ${DateTime.now().minute}분"
-              ,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+              ,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),),
           ),
           const SizedBox(
             height: 10,
@@ -290,17 +301,26 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
           const SizedBox(
-            height: 20,
+            height: 30,
           ),
-          const SizedBox(
-            width: double.infinity,
-            child: Text("주차장 내부 측정 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+          Container(
+            padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5,right: 10),
+            margin: const EdgeInsets.only(bottom: 10),
+            decoration: BoxDecoration(
+              color: Colors.blueAccent,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: const Text("주차장 내부 측정 정보",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+          ),
+          const Divider(
+            color: Colors.white,
+            height: 1,
           ),
           const SizedBox(
             width: double.infinity,
             child: Text(
               "마지막 조회 : 2024년 4월 30일 23시 30분"
-              ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+              ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),),
           ),
           const SizedBox(
             height: 10,

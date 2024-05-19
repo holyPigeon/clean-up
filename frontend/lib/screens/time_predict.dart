@@ -154,7 +154,7 @@ class _TimePredictState extends State<TimePredict> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -177,10 +177,14 @@ class _TimePredictState extends State<TimePredict> {
             const SizedBox(
               height: 10,
             ),
-            Box(
-              width: width,
-              height: height * 0.18,
-              widget: ParkingDataWidget(
+            Container(
+              padding: const EdgeInsets.all(10),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: ParkingDataWidget(
                 month: month,
                 day: day,
                 hour: hour,
@@ -188,7 +192,7 @@ class _TimePredictState extends State<TimePredict> {
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             Container(
               alignment: Alignment.centerLeft,
