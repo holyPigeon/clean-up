@@ -522,7 +522,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           titlesData: const FlTitlesData(
                             show: true,
                             bottomTitles: AxisTitles(
-                              axisNameWidget: Text("지정한 시간부터 30분 간격으로 예측한 NOx값 (X축:분)", style: TextStyle(
+                              axisNameWidget: Text("지정한 시간부터 30분 간격으로 예측한 NOx값", style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 )
@@ -616,7 +616,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           titlesData: const FlTitlesData(
                             show: true,
                             bottomTitles: AxisTitles(
-                              axisNameWidget: Text("지정한 시간부터 30분 간격으로 예측한 SOx값 (X축:분)", style: TextStyle(
+                              axisNameWidget: Text("지정한 시간부터 30분 간격으로 예측한 SOx값", style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                 )

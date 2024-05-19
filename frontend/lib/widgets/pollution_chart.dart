@@ -80,13 +80,13 @@ class _PollutionChartsState extends State<PollutionCharts> {
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                           axisNameWidget: Text(
-                            '지정한 시간부터 30분 간격으로 예측한 NOx(주황색)값과 실제 NOx(파란색)값',
+                            '지정한 시간부터 30분 간격으로 예측한\nNOx(주황색)값과 실제 NOx(파란색)값',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          axisNameSize: 20,
+                          axisNameSize: 40,
                         ),
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
@@ -233,13 +233,13 @@ class _PollutionChartsState extends State<PollutionCharts> {
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
           axisNameWidget: Text(
-            '지정한 시간부터 30분 간격으로 예측한 SOx(주황색)값과 실제 SOx(파란색)값',
+            '지정한 시간부터 30분 간격으로 예측한\nSOx(주황색)값과 실제 SOx(파란색)값',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
-          axisNameSize: 20,
+          axisNameSize: 40,
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
