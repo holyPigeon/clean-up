@@ -269,7 +269,7 @@ class _TimePredictState extends State<TimePredict> {
             const SizedBox(
               height: 10,
             ),
-            const Text("그래프를 손으로 터치하면 해당 시간의 값이 나옵니다.",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
+            const Text("그래프를 손으로 누르면 해당 시간의 값이 나옵니다.",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),),
             const SizedBox(
               height: 10,
             ),
