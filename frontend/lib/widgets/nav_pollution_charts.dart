@@ -10,6 +10,7 @@ import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/input_infos.dart';
 import '../models/dust_info.dart';
 import '../models/parking_lot_predicted_nox.dart';
+import '../models/parking_lot_predicted_sox.dart';
 import '../models/weather_info.dart';
 import '../screens/time_predict.dart';
 import '../services/dust_info_service.dart';
@@ -419,8 +420,21 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
             Box(
               width: width,
               height: height / 3,
-              widget: FutureBuilder<List<PredictedSox>>(
-                future: fetchSox(month, day, hour, minute),
+              widget: FutureBuilder<List<PrakingLotPredictedSox>>(
+                future: fetchParkingLotPredictSox(
+                  parkingLotpredictHour,
+                  parkingLotpredictMinute,
+                  carCount ?? 0,
+                  dieselCarRatio ?? 0.0,
+                  inSideTemperature ?? 0.0,
+                  inSideHumidity ?? 0.0,
+                  insideNox ?? 0.0,
+                  insideSox ?? 0.0,
+                  outSideTemperature ?? 0.0,
+                  outSideHumidity ?? 0.0,
+                  outSideNox ?? 0.0,
+                  outSideSox ?? 0.0,
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final data = snapshot.data!;
@@ -446,16 +460,11 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
   }
 
 //LineChart(_noxChart(data)),
-  List<FlSpot> _soxDataPoints(List<PredictedSox> data) {
+  List<FlSpot> _soxDataPoints(List<PrakingLotPredictedSox> data) {
     return data
         .map((data) => FlSpot(
-              data.minute * 60.toDouble() +
-                  data.hour * 60 * 60.toDouble() +
-                  data.day *
-                      24 *
-                      60 *
-                      60.toDouble(), // Calculate milliseconds since epoch
-              data.predictedSox,
+              data.passedMinute, // Calculate milliseconds since epoch
+              data.predictedNox,
             ))
         .toList();
   }
@@ -469,7 +478,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
         .toList();
   }
 
-  LineChartData _soxChart(List<PredictedSox> data) {
+  LineChartData _soxChart(List<PrakingLotPredictedSox> data) {
     return LineChartData(
       lineBarsData: [
         LineChartBarData(
