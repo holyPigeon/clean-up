@@ -24,18 +24,18 @@ class InputInfos extends StatefulWidget {
   State<InputInfos> createState() => _InputInfosState();
 }
 
-class _InputInfosState extends State<InputInfos> {
+final outSideTemperatureController = TextEditingController();
+final inSideTemperatureController = TextEditingController();
+final outSideHumidityController = TextEditingController();
+final inSideHumidityController = TextEditingController();
+final outSideNoxController = TextEditingController();
+final outSideSoxController = TextEditingController();
+final insideNoxController = TextEditingController();
+final insideSoxController = TextEditingController();
+final dieselCarRatioController = TextEditingController();
+final carCountController = TextEditingController();
 
-  final outSideTemperatureController = TextEditingController();
-  final inSideTemperatureController = TextEditingController();
-  final outSideHumidityController = TextEditingController();
-  final inSideHumidityController = TextEditingController();
-  final outSideNoxController = TextEditingController();
-  final outSideSoxController = TextEditingController();
-  final insideNoxController = TextEditingController();
-  final insideSoxController = TextEditingController();
-  final dieselCarRatioController = TextEditingController();
-  final carCountController = TextEditingController();
+class _InputInfosState extends State<InputInfos> {
 
   bool _canSubmit = false;
 
@@ -242,60 +242,6 @@ class _InputInfosState extends State<InputInfos> {
                 ),
               ],
             ),
-            const SizedBox(height: 32.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                    child: const Text('취소',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: ()async{
-                      log("확인 버튼 눌림");
-                      carCount = int.parse(carCountController.text);
-                      dieselCarRatio = double.parse(dieselCarRatioController.text);
-                      inSideTemperature = double.parse(inSideTemperatureController.text);
-                      inSideHumidity = double.parse(inSideHumidityController.text);
-                      insideNox = double.parse(insideNoxController.text);
-                      insideSox = double.parse(insideSoxController.text);
-                      setState(() {
-                        Navigator.pop(context);
-                      });
-                    },
-                    child: const Text('확인',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),

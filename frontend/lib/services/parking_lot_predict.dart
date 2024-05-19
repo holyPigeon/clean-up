@@ -17,11 +17,13 @@ Future<List<PrakingLotPredictedNox>> fetchParkingLotPredictNox(
     double humidity,
     double actualNox,
     double actualSox,
+    double externalTemperature,
+    double externalHumidity,
+    double actualExternalNox,
+    double actualExternalSox,
     ) async {
   var headers = {'Content-Type': 'application/json'};
-  log("다시 호출됨");
-  WeatherInfo outSideDataResult = await fetchWeatherInfo();
-  DustInfo dustInfoResult = await fetchDustInfo();
+
   final body = jsonEncode({
     "hour": hour,
     "minute": minute,
@@ -31,10 +33,10 @@ Future<List<PrakingLotPredictedNox>> fetchParkingLotPredictNox(
     "humidity": humidity,
     "actualNox": actualNox,
     "actualSox": actualSox,
-    "externalTemperature": double.parse(outSideDataResult.temp),
-    "externalHumidity": double.parse(outSideDataResult.humidity),
-    "actualExternalNox": double.parse(dustInfoResult.nox),
-    "actualExternalSox": double.parse(dustInfoResult.sox),
+    "externalTemperature": externalTemperature,
+    "externalHumidity": externalHumidity,
+    "actualExternalNox": actualExternalNox,
+    "actualExternalSox": actualExternalSox,
   });
 
   final response = await http.post(

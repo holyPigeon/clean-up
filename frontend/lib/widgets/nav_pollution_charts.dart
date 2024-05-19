@@ -15,6 +15,7 @@ import '../screens/time_predict.dart';
 import '../services/dust_info_service.dart';
 import '../services/parking_lot_predict.dart';
 import '../services/weather_info.dart';
+import 'input_infos_test.dart';
 
 double? inSideTemperature;
 double? inSideHumidity;
@@ -22,6 +23,10 @@ double? insideNox;
 double? insideSox;
 double? dieselCarRatio;
 int? carCount;
+double? outSideTemperature;
+double? outSideHumidity;
+double? outSideNox;
+double? outSideSox;
 
 class NavPollutionCharts extends StatefulWidget {
   final int month;
@@ -41,28 +46,30 @@ class NavPollutionCharts extends StatefulWidget {
   State<NavPollutionCharts> createState() => _PollutionChartsState();
 }
 
-int _hour = 0;
-int _minute = 0;
+int parkingLotpredictHour = 0;
+int parkingLotpredictMinute = 0;
 
 class _PollutionChartsState extends State<NavPollutionCharts> {
+
+  WeatherInfo? outSideDataResult;
+  DustInfo? dustInfoResult;
 
   @override
   void dispose() {
     super.dispose();
   }
 
-  late WeatherInfo _outSideDataResult;
-  late DustInfo _dustInfoResult;
-
-  Function? func;
-
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      _outSideDataResult = await fetchWeatherInfo();
-      _dustInfoResult = await fetchDustInfo();
+      var a = await fetchWeatherInfo();
+      var b = await fetchDustInfo();
+      setState((){
+        outSideDataResult = a;
+        dustInfoResult = b;
+      });
     });
+    super.initState();
   }
 
   Widget _selectTime(BuildContext context) {
@@ -72,8 +79,8 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
       onTimerDurationChanged: (value) {
         setState(() {
           //_timeAPIRequest(value.inHours, value.inMinutes % 60);
-          _hour = value.inHours;
-          _minute = value.inMinutes % 60;
+          parkingLotpredictHour = value.inHours;
+          parkingLotpredictMinute = value.inMinutes % 60;
         });
       },
     );
@@ -100,6 +107,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 ),
               ),
             ),
+            const Text("외부 정보는 자동으로 채워지나 수정 가능 합니다.", style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
             Container(
               height: 2,
               decoration: BoxDecoration(
@@ -145,7 +153,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                   width: 10,
                 ),
                 Expanded(
-                  flex: 2,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black, backgroundColor: Colors.blueAccent.shade400,
@@ -153,21 +160,202 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                     ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            content: InputInfos(hour: _hour,minute: _minute,dustInfoResult: _dustInfoResult,outSideDataResult: _outSideDataResult,),
-
-                          );
-                        },
-                      );
+                    onPressed: () => alterDialogSetState(
+                    context: context,
+                    confirmPressed: () {
+                      setState(() {
+                        carCount = int.parse(carCountController.text);
+                        dieselCarRatio = double.parse(dieselCarRatioController.text);
+                        inSideTemperature = double.parse(inSideTemperatureController.text);
+                        inSideHumidity = double.parse(inSideHumidityController.text);
+                        insideNox = double.parse(insideNoxController.text);
+                        insideSox = double.parse(insideSoxController.text);
+                        outSideTemperature = double.parse(outSideTemperatureController.text);
+                        outSideHumidity = double.parse(outSideHumidityController.text);
+                        outSideNox = double.parse(outSideNoxController.text);
+                        outSideSox = double.parse(outSideSoxController.text);
+                        Navigator.pop(context);
+                      });
                     },
+                    closePressed: () {
+                      setState(() {
+                        Navigator.pop(context);
+                      });
+                    },
+                    dustInfoResult: dustInfoResult!, outSideDataResult: outSideDataResult!),
                     child: const Text("상세 조건 입력", style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
                   ),
                 )
               ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                '설정된 조건',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            Container(
+              height: 2,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+                padding: const EdgeInsets.all(15),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text("차량 수(대)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                          Text("$carCount", style: const TextStyle(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          const Text("경유차 비율(%)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                          Text("$dieselCarRatio", style: const TextStyle(color: Colors.black)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.all(15),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  const Text("내부", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                  const Divider(
+                    thickness: 1.5,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const Text("온도(°C)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            Text("$inSideTemperature", style: const TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const Text("습도(%)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            Text("$inSideHumidity", style: const TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const Text("NOx(ppm)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            Text("$insideNox", style: const TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            const Text("SOx(ppm)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                            Text("$insideSox", style: const TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              )
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+                padding: const EdgeInsets.all(15),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    const Text("외부", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                    const Divider(
+                      thickness: 1.5,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text("온도(°C)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              Text(outSideDataResult?.temp ?? "null", style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text("습도(%)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              Text(outSideDataResult?.humidity ?? "null", style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text("NOx(ppm)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              Text(dustInfoResult?.nox ?? "null", style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const Text("SOx(ppm)", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                              Text(dustInfoResult?.sox ?? "null", style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )
             ),
             const SizedBox(
               height: 10,
@@ -198,14 +386,18 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
               height: height / 3,
               widget: FutureBuilder<List<PrakingLotPredictedNox>>(
                 future: fetchParkingLotPredictNox(
-                  _hour,
-                  _minute,
+                  parkingLotpredictHour,
+                  parkingLotpredictMinute,
                   carCount ?? 0,
                   dieselCarRatio ?? 0.0,
                   inSideTemperature ?? 0.0,
                   inSideHumidity ?? 0.0,
                   insideNox ?? 0.0,
                   insideSox ?? 0.0,
+                  outSideTemperature ?? 0.0,
+                  outSideHumidity ?? 0.0,
+                  outSideNox ?? 0.0,
+                  outSideSox ?? 0.0,
                 ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
