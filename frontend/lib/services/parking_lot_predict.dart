@@ -5,8 +5,6 @@ import '../models/parking_lot_predicted_nox.dart';
 import '../models/parking_lot_predicted_sox.dart';
 
 Future<List<PrakingLotPredictedNox>> fetchParkingLotPredictNox(
-    int hour,
-    int minute,
     int carCount,
     double dieselRatio,
     double temperature,
@@ -21,8 +19,8 @@ Future<List<PrakingLotPredictedNox>> fetchParkingLotPredictNox(
   var headers = {'Content-Type': 'application/json'};
 
   final body = jsonEncode({
-    "hour": hour,
-    "minute": minute,
+    "hour": DateTime.now().hour,
+    "minute": DateTime.now().minute,
     "carCount": carCount,
     "dieselRatio": dieselRatio,
     "temperature": temperature,
@@ -50,8 +48,6 @@ Future<List<PrakingLotPredictedNox>> fetchParkingLotPredictNox(
 }
 
 Future<List<PrakingLotPredictedSox>> fetchParkingLotPredictSox(
-    int hour,
-    int minute,
     int carCount,
     double dieselRatio,
     double temperature,
@@ -66,8 +62,8 @@ Future<List<PrakingLotPredictedSox>> fetchParkingLotPredictSox(
   var headers = {'Content-Type': 'application/json'};
 
   final body = jsonEncode({
-    "hour": hour,
-    "minute": minute,
+    "hour": DateTime.now().hour,
+    "minute": DateTime.now().minute,
     "carCount": carCount,
     "dieselRatio": dieselRatio,
     "temperature": temperature,

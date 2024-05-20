@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/dust_info.dart';
@@ -45,6 +44,12 @@ class _InputInfosState extends State<InputInfos> {
       outSideHumidityController.text = widget.outSideDataResult!.humidity.toString();
       outSideNoxController.text = widget.dustInfoResult!.nox.toString();
       outSideSoxController.text = widget.dustInfoResult!.sox.toString();
+      inSideTemperatureController.text = '15.3';
+      inSideHumidityController.text = '23.0';
+      insideNoxController.text = '0.24';
+      insideSoxController.text = '0.56';
+      dieselCarRatioController.text = '43.87';
+      carCountController.text = '50';
     });
   }
 
@@ -62,14 +67,6 @@ class _InputInfosState extends State<InputInfos> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              '설정된 시간: ${widget.hour}시 ${widget.minute}분',
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
             Row(
               children: [
                 Expanded(

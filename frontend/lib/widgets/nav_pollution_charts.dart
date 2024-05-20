@@ -71,20 +71,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
     super.initState();
   }
 
-  Widget _selectTime(BuildContext context) {
-    return CupertinoTimerPicker(
-      mode: CupertinoTimerPickerMode.hm,
-      minuteInterval: 30,
-      onTimerDurationChanged: (value) {
-        setState(() {
-          //_timeAPIRequest(value.inHours, value.inMinutes % 60);
-          parkingLotpredictHour = value.inHours;
-          parkingLotpredictMinute = value.inMinutes % 60;
-        });
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery
@@ -129,41 +115,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.blueAccent.shade400,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Dialog(
-                                  child: _selectTime(context)
-                              )
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: const Text('시간', style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -481,8 +432,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
               height: height / 3,
               widget: FutureBuilder<List<PrakingLotPredictedNox>>(
                 future: fetchParkingLotPredictNox(
-                  parkingLotpredictHour,
-                  parkingLotpredictMinute,
                   carCount ?? 0,
                   dieselCarRatio ?? 0.0,
                   inSideTemperature ?? 0.0,
@@ -510,6 +459,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           // X는 최대 4칸
                           minX: 0,
                           maxX: 120,
+                          minY: 0,
                           extraLinesData: ExtraLinesData(
                               horizontalLines: [HorizontalLine(y: 0),],
                               verticalLines: [VerticalLine(x: 0)]),
@@ -583,8 +533,6 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
               height: height / 3,
               widget: FutureBuilder<List<PrakingLotPredictedSox>>(
                 future: fetchParkingLotPredictSox(
-                  parkingLotpredictHour,
-                  parkingLotpredictMinute,
                   carCount ?? 0,
                   dieselCarRatio ?? 0.0,
                   inSideTemperature ?? 0.0,
@@ -612,6 +560,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           // X는 최대 4칸
                           minX: 0,
                           maxX: 120,
+                          minY: 0,
                           extraLinesData: ExtraLinesData(
                               horizontalLines: [HorizontalLine(y: 0),],
                               verticalLines: [VerticalLine(x: 0)]),
