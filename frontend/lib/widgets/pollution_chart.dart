@@ -75,6 +75,15 @@ class _PollutionChartsState extends State<PollutionCharts> {
                         ),
                       ),
                       gridData: const FlGridData(show: true),
+                      // 그래프에 ppm 단위가 나오도록 설정
+                      lineTouchData: const LineTouchData(
+                        touchTooltipData: LineTouchTooltipData(
+                          showOnTopOfTheChartBoxArea: false,
+                          getTooltipItems: getTooltipItems,
+                        ),
+                        enabled: true,
+                        handleBuiltInTouches: true,
+                      ),
                       titlesData: const FlTitlesData(
                         show: true,
                         bottomTitles: AxisTitles(
@@ -228,6 +237,14 @@ class _PollutionChartsState extends State<PollutionCharts> {
         ),
       ),
       gridData: const FlGridData(show: true),
+      lineTouchData: const LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          showOnTopOfTheChartBoxArea: false,
+          getTooltipItems: getTooltipItems2,
+        ),
+        enabled: true,
+        handleBuiltInTouches: true,
+      ),
       titlesData: const FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
@@ -253,4 +270,34 @@ class _PollutionChartsState extends State<PollutionCharts> {
       ),
     );
   }
+}
+
+List<LineTooltipItem> getTooltipItems(List<LineBarSpot> lineBars) {
+  final LineChartBarData lineChartBarData = lineBars[0].bar;
+  final int index = lineBars[0].spotIndex;
+  return [
+    LineTooltipItem(
+      '${lineChartBarData.spots[index].y} ppm',
+      const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+    ),
+    LineTooltipItem(
+      '${lineBars[1].bar.spots[index].y} ppm',
+      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+    ),
+  ];
+}
+
+List<LineTooltipItem> getTooltipItems2(List<LineBarSpot> lineBars) {
+  final LineChartBarData lineChartBarData = lineBars[0].bar;
+  final int index = lineBars[0].spotIndex;
+  return [
+    LineTooltipItem(
+      '${lineChartBarData.spots[index].y} ppm',
+      const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
+    ),
+    LineTooltipItem(
+      '${lineBars[1].bar.spots[index].y} ppm',
+      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
+    ),
+  ];
 }

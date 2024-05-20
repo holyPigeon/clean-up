@@ -94,7 +94,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
                     style: const TextStyle(color: Colors.black),
                   ),),
                   DataCell( Text(
-                    '${data[0].carCount}',
+                    '',
                     style: const TextStyle(color: Colors.black),
                   ),),
                 ],
@@ -121,7 +121,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
                     '${data[0].sox}',
                     style: const TextStyle(color: Colors.black),
                   ),),
-                  const DataCell(Text('')), // 차량 수는 첫 번째 줄에만 표시
+                  DataCell(Text('${data[0].carCount}')), // 차량 수는 첫 번째 줄에만 표시
                 ],
               ),
             ],

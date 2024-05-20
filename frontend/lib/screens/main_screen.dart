@@ -70,6 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.all(5),
                         alignment: Alignment.topLeft,
                         child: const Text(
                           '기온(°C)',
@@ -90,13 +91,14 @@ class _MainScreenState extends State<MainScreen> {
                           if (snapshot.hasData) {
                             final data = snapshot.data!;
                             return Container(
+                              padding: const EdgeInsets.all(10),
                               alignment: Alignment.bottomRight,
                               child: Text(
                                 data.temp.toString(),
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 40
+                                  fontSize: 50
                                 ),
                               ),
                             );
@@ -129,6 +131,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.all(5),
                         alignment: Alignment.topLeft,
                         child: const Text(
                           '습도(%)',
@@ -149,13 +152,14 @@ class _MainScreenState extends State<MainScreen> {
                           if (snapshot.hasData) {
                             final data = snapshot.data!;
                             return Container(
+                              padding: const EdgeInsets.all(10),
                               alignment: Alignment.bottomRight,
                               child: Text(
                                 data.humidity.toString(),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 40
+                                    fontSize: 50
                                 ),
                               ),
                             );
@@ -193,6 +197,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.all(5),
                         alignment: Alignment.topLeft,
                         child: const Text(
                           'NOx(ppm)',
@@ -213,13 +218,14 @@ class _MainScreenState extends State<MainScreen> {
                           if (snapshot.hasData) {
                             final data = snapshot.data!;
                             return Container(
+                              padding: const EdgeInsets.all(10),
                               alignment: Alignment.bottomRight,
                               child: Text(
                                 data.nox.toString(),
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 40
+                                    fontSize: 50
                                 ),
                               ),
                             );
@@ -252,6 +258,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Column(
                     children: [
                       Container(
+                        padding: const EdgeInsets.all(5),
                         alignment: Alignment.topLeft,
                         child: const Text(
                           'SOx(ppm)',
@@ -272,13 +279,14 @@ class _MainScreenState extends State<MainScreen> {
                           if (snapshot.hasData) {
                             final data = snapshot.data!;
                             return Container(
+                              padding: const EdgeInsets.all(10),
                               alignment: Alignment.bottomRight,
                               child: Text(
                                 data.sox,
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 40
+                                    fontSize: 50
                                 ),
                               ),
                             );
@@ -326,7 +334,7 @@ class _MainScreenState extends State<MainScreen> {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -335,7 +343,7 @@ class _MainScreenState extends State<MainScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 100,
+                  height: 200,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset("assets/banner.png",fit: BoxFit.cover),
@@ -354,37 +362,79 @@ class _MainScreenState extends State<MainScreen> {
                           Row(
                             children: [
                               Expanded(
-                                child:  Column(
-                                  children: [
-                                    const Text("온도(°C)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(data[0].temperature.toString(),style: TextStyle(color: Colors.black,fontSize: 20))
-                                  ],
-                                ),
+                                child:  Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      const Text("온도(°C)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 20)),
+                                      const Divider(
+                                        color: Colors.black,
+                                        height: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(data[0].temperature.toString(),style: const TextStyle(color: Colors.black,fontSize: 40))
+                                    ],
+                                  ),
+                                )
+                              ),
+                              const SizedBox(
+                                width: 10,
                               ),
                               Expanded(
-                                child:  Column(
-                                  children: [
-                                    const Text("습도(%)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(data[0].humidity.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
-                                  ],
-                                ),
+                                child:  Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      const Text("습도(%)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 20)),
+                                      const Divider(
+                                        color: Colors.black,
+                                        height: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(data[0].humidity.toString(),style: const TextStyle(color: Colors.black,fontSize: 40))
+                                    ],
+                                  ),
+                                )
+                              ),
+                              const SizedBox(
+                                width: 10,
                               ),
                               Expanded(
-                                child:  Column(
-                                  children: [
-                                    const Text("차량수(대)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(data[0].carCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
-                                  ],
-                                ),
+                                child:  Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      const Text("차량수(대)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 20)),
+                                      const Divider(
+                                        color: Colors.black,
+                                        height: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(data[0].carCount.toString(),style: const TextStyle(color: Colors.black,fontSize: 40))
+                                    ],
+                                  ),
+                                )
                               ),
                             ],
                           ),
@@ -394,26 +444,53 @@ class _MainScreenState extends State<MainScreen> {
                           Row(
                             children: [
                               Expanded(
-                                child:  Column(
-                                  children: [
-                                    const Text("NOx(ppm)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(data[0].nox.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
-                                  ],
-                                ),
+                                child:  Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      const Text("NOx(ppm)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 20)),
+                                      const Divider(
+                                        color: Colors.black,
+                                        height: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(data[0].nox.toString(),style: const TextStyle(color: Colors.black,fontSize: 40))
+                                    ],
+                                  ),
+                                )
+                              ),
+                              const SizedBox(
+                                width: 10,
                               ),
                               Expanded(
-                                child:  Column(
-                                  children: [
-                                    const Text("SOx(ppm)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15)),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(data[0].sox.toString(),style: const TextStyle(color: Colors.black,fontSize: 20))
-                                  ],
-                                ),
+                                child:  Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    children: [
+                                      const Text("SOx(ppm)",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 20)),
+                                      const Divider(
+                                        color: Colors.black,
+                                        height: 1,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(data[0].sox.toString(),style: const TextStyle(color: Colors.black,fontSize: 40))
+                                    ],
+                                  ),
+                                )
                               ),
                             ],
                           ),
