@@ -724,10 +724,6 @@ List<LineTooltipItem> getTooltipItems(List<LineBarSpot> lineBars) {
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
     ),
-    LineTooltipItem(
-      '${lineBars[1].bar.spots[index].y} ppm',
-      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-    ),
   ];
 }
 
@@ -738,10 +734,6 @@ List<LineTooltipItem> getTooltipItems2(List<LineBarSpot> lineBars) {
     LineTooltipItem(
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
-    ),
-    LineTooltipItem(
-      '${lineBars[1].bar.spots[index].y} ppm',
-      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
     ),
   ];
 }
