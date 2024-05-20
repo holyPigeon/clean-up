@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kyonggi_project/widgets/box.dart';
 import 'package:kyonggi_project/widgets/input_infos.dart';
+import 'package:kyonggi_project/widgets/pollution_chart.dart';
 import '../models/dust_info.dart';
 import '../models/parking_lot_predicted_nox.dart';
 import '../models/parking_lot_predicted_sox.dart';
@@ -518,7 +519,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           lineTouchData: const LineTouchData(
                             touchTooltipData: LineTouchTooltipData(
                               showOnTopOfTheChartBoxArea: false,
-                              getTooltipItems: getTooltipItems,
+                              getTooltipItems: getTooltipItems3,
                             ),
                             enabled: true,
                             handleBuiltInTouches: true,
@@ -620,7 +621,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                           lineTouchData: const LineTouchData(
                             touchTooltipData: LineTouchTooltipData(
                               showOnTopOfTheChartBoxArea: false,
-                              getTooltipItems: getTooltipItems2,
+                              getTooltipItems: getTooltipItems4,
                             ),
                             enabled: true,
                             handleBuiltInTouches: true,
@@ -716,13 +717,17 @@ Widget getBottomTitles(double value, TitleMeta meta) {
   return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }
 
-List<LineTooltipItem> getTooltipItems(List<LineBarSpot> lineBars) {
+List<LineTooltipItem> getTooltipItems1(List<LineBarSpot> lineBars) {
   final LineChartBarData lineChartBarData = lineBars[0].bar;
   final int index = lineBars[0].spotIndex;
   return [
     LineTooltipItem(
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+    ),
+    LineTooltipItem(
+      '${lineBars[1].bar.spots[index].y} ppm',
+      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
     ),
   ];
 }
@@ -734,6 +739,10 @@ List<LineTooltipItem> getTooltipItems2(List<LineBarSpot> lineBars) {
     LineTooltipItem(
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
+    ),
+    LineTooltipItem(
+      '${lineBars[1].bar.spots[index].y} ppm',
+      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
     ),
   ];
 }

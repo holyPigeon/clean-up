@@ -5,6 +5,7 @@ import 'package:kyonggi_project/models/predicted_sox.dart';
 import 'package:kyonggi_project/services/actual_nox.dart';
 import 'package:kyonggi_project/services/actual_sox.dart';
 import '../screens/time_predict.dart';
+import 'nav_pollution_charts.dart';
 
 class PollutionCharts extends StatefulWidget {
   final int month;
@@ -79,7 +80,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
                       lineTouchData: const LineTouchData(
                         touchTooltipData: LineTouchTooltipData(
                           showOnTopOfTheChartBoxArea: false,
-                          getTooltipItems: getTooltipItems,
+                          getTooltipItems: getTooltipItems1,
                         ),
                         enabled: true,
                         handleBuiltInTouches: true,
@@ -272,7 +273,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
   }
 }
 
-List<LineTooltipItem> getTooltipItems(List<LineBarSpot> lineBars) {
+List<LineTooltipItem> getTooltipItems3(List<LineBarSpot> lineBars) {
   final LineChartBarData lineChartBarData = lineBars[0].bar;
   final int index = lineBars[0].spotIndex;
   return [
@@ -280,24 +281,16 @@ List<LineTooltipItem> getTooltipItems(List<LineBarSpot> lineBars) {
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
     ),
-    LineTooltipItem(
-      '${lineBars[1].bar.spots[index].y} ppm',
-      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
-    ),
   ];
 }
 
-List<LineTooltipItem> getTooltipItems2(List<LineBarSpot> lineBars) {
+List<LineTooltipItem> getTooltipItems4(List<LineBarSpot> lineBars) {
   final LineChartBarData lineChartBarData = lineBars[0].bar;
   final int index = lineBars[0].spotIndex;
   return [
     LineTooltipItem(
       '${lineChartBarData.spots[index].y} ppm',
       const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
-    ),
-    LineTooltipItem(
-      '${lineBars[1].bar.spots[index].y} ppm',
-      const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold),
     ),
   ];
 }
