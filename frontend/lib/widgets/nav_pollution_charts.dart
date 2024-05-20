@@ -226,8 +226,8 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                                 Navigator.pop(context);
                               });
                             },
-                            dustInfoResult: dustInfoResult!,
-                            outSideDataResult: outSideDataResult!),
+                            dustInfoResult: dustInfoResult,
+                            outSideDataResult: outSideDataResult),
                     child: const Text("상세 조건 입력", style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -548,7 +548,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                       ),
                     );
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}',
+                    return Text('불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                         style: const TextStyle(color: Colors.black)); // 오류 처리
                   }
                   // 데이터 로딩 중 표시할 위젯
@@ -643,7 +643,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                     );
                   } else if (snapshot.hasError) {
                     return Text(
-                      '${snapshot.error}',
+                      '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                       style: const TextStyle(color: Colors.black),
                     ); // 오류 처리
                   }

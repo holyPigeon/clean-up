@@ -14,8 +14,8 @@ class InputInfos extends StatefulWidget {
   });
   final hour;
   final minute;
-  final DustInfo dustInfoResult;
-  final WeatherInfo outSideDataResult;
+  final DustInfo? dustInfoResult;
+  final WeatherInfo? outSideDataResult;
 
   @override
   State<InputInfos> createState() => _InputInfosState();
@@ -41,10 +41,10 @@ class _InputInfosState extends State<InputInfos> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      outSideTemperatureController.text = widget.outSideDataResult.temp.toString();
-      outSideHumidityController.text = widget.outSideDataResult.humidity.toString();
-      outSideNoxController.text = widget.dustInfoResult.nox.toString();
-      outSideSoxController.text = widget.dustInfoResult.sox.toString();
+      outSideTemperatureController.text = widget.outSideDataResult!.temp.toString();
+      outSideHumidityController.text = widget.outSideDataResult!.humidity.toString();
+      outSideNoxController.text = widget.dustInfoResult!.nox.toString();
+      outSideSoxController.text = widget.dustInfoResult!.sox.toString();
     });
   }
 

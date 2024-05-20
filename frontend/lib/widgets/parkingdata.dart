@@ -127,7 +127,7 @@ class _ParkingDataWidgetState extends State<ParkingDataWidget> {
             ],
           );
         } else if (snapshot.hasError) {
-          return Text('${snapshot.error}'); // 오류 처리
+          return Text('불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}'); // 오류 처리
         }
         // 데이터 로딩 중 표시할 위젯
         return const Center(child: CircularProgressIndicator());

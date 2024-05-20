@@ -102,7 +102,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
                   ),
                 );
               } else if (snapshot.hasError) {
-                return Text('${snapshot.error}',
+                return Text('불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                     style: const TextStyle(color: Colors.black)); // 오류 처리
               }
               // 데이터 로딩 중 표시할 위젯
@@ -124,7 +124,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
                 );
               } else if (snapshot.hasError) {
                 return Text(
-                  '${snapshot.error}',
+                  '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                   style: const TextStyle(color: Colors.black),
                 ); // 오류 처리
               }

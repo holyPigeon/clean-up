@@ -10,8 +10,8 @@ alterDialogSetState({
   required BuildContext context,
   required Function() closePressed,
   required Function() confirmPressed,
-  required DustInfo dustInfoResult,
-  required WeatherInfo outSideDataResult,
+  required DustInfo? dustInfoResult,
+  required WeatherInfo? outSideDataResult,
 }) {
   return showDialog(
       context: context,

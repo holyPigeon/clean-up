@@ -102,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           } else if (snapshot.hasError) {
                             return Text(
-                              '${snapshot.error}',
+                              '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                               style:
                               const TextStyle(color: Colors.black),
                             ); // 오류 처리
@@ -161,7 +161,7 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           } else if (snapshot.hasError) {
                             return Text(
-                              '${snapshot.error}',
+                              '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                               style:
                               const TextStyle(color: Colors.black),
                             ); // 오류 처리
@@ -225,7 +225,7 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           } else if (snapshot.hasError) {
                             return Text(
-                              '${snapshot.error}',
+                              '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                               style:
                               const TextStyle(color: Colors.black),
                             ); // 오류 처리
@@ -284,7 +284,7 @@ class _MainScreenState extends State<MainScreen> {
                             );
                           } else if (snapshot.hasError) {
                             return Text(
-                              '${snapshot.error}',
+                              '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                               style:
                               const TextStyle(color: Colors.black),
                             ); // 오류 처리
@@ -421,7 +421,7 @@ class _MainScreenState extends State<MainScreen> {
                       );
                     } else if (snapshot.hasError) {
                       return Text(
-                        '${snapshot.error}',
+                        '불러오던 도중 에러가 발생하였습니다.\n${snapshot.error}',
                         style:
                         const TextStyle(color: Colors.black),
                       ); // 오류 처리
