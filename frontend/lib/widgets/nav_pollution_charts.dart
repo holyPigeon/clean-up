@@ -676,7 +676,7 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       text = const Text("60분 후");
       break;
     case 120:
-      text = const Text("120 후");
+      text = const Text("120분 후");
       break;
     default:
       text = const Text(" ");
