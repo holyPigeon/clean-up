@@ -88,9 +88,13 @@ class _PollutionChartsState extends State<PollutionCharts> {
                       titlesData: const FlTitlesData(
                         show: true,
                         bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            // getTitlesWidget: getBottomTitlesTimePredict,
+                            reservedSize: 30,
+                          ),
                           axisNameWidget: Text(
-                            '지정한 시간부터 30분 간격으로 예측한\nNOx(주황색)값과 실제 NOx(파란색)값',
+                            '지정한 시간부터 30분 간격으로 예측한\nNOx(주황색)값과 실제 NOx(빨간색)값',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -99,13 +103,18 @@ class _PollutionChartsState extends State<PollutionCharts> {
                           axisNameSize: 40,
                         ),
                         leftTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 50
+                          ),
                         ),
                         rightTitles: AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
                         topTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          ),
                         ),
                       ),
                     ),
@@ -249,7 +258,10 @@ class _PollutionChartsState extends State<PollutionCharts> {
       titlesData: const FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+          sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 30
+          ),
           axisNameWidget: Text(
             '지정한 시간부터 30분 간격으로 예측한\nSOx(주황색)값과 실제 SOx(파란색)값',
             style: TextStyle(
@@ -260,7 +272,10 @@ class _PollutionChartsState extends State<PollutionCharts> {
           axisNameSize: 40,
         ),
         leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 50,
+          ), // Y축 레이블 숨기기
         ),
         rightTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
@@ -294,3 +309,12 @@ List<LineTooltipItem> getTooltipItems4(List<LineBarSpot> lineBars) {
     ),
   ];
 }
+
+// Widget getBottomTitlesTimePredict(double value, TitleMeta meta) {
+//   Widget text;
+//
+//   // 시작 값과 끝 값만 넣기
+//
+//
+//   return SideTitleWidget(axisSide: meta.axisSide, child: text);
+// }
