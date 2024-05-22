@@ -421,11 +421,19 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 color: Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text("예측된 NOx (ppm)", style: TextStyle(
+              child: const Text("예측된 NOx", style: TextStyle(
                   color: Colors.white, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
               height: 5,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 10,bottom: 5),
+              alignment: Alignment.centerLeft,
+              child: const Text("(단위:ppm)", style: TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.normal
+              )
+              ),
             ),
             Box(
               width: width,
@@ -517,18 +525,26 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 },
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                 color: Colors.blueAccent.shade200,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text("예측된 SOx (ppm)", style: TextStyle(
+              child: const Text("예측된 SOx", style: TextStyle(
                   color: Colors.white, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
               height: 5,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 10,bottom: 5),
+              alignment: Alignment.centerLeft,
+              child: const Text("(단위:ppm)", style: TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.normal
+              )
+              ),
             ),
             Box(
               width: width,
