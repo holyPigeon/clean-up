@@ -123,7 +123,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
                             reservedSize: 30,
                           ),
                           axisNameWidget: Text(
-                            '             0(h)                                                                              12(h)                                                                          24(h)',
+                            '             0(h)                                                                                  12(h)                                                                          24(h)',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -321,7 +321,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
             // getTitlesWidget: getBottomTitlesTimePredict2,
           ),
           axisNameWidget: Text(
-            '             0(h)                                                                              12(h)                                                                          24(h)',
+            '             0(h)                                                                                  12(h)                                                                          24(h)',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.normal,
