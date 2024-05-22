@@ -421,7 +421,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 color: Colors.redAccent.shade200,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text("예측된 NOx", style: TextStyle(
+              child: const Text("예측된 NOx (ppm)", style: TextStyle(
                   color: Colors.white, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
@@ -492,7 +492,9 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                             ),
                             leftTitles: AxisTitles(
                               sideTitles: SideTitles(
-                                  showTitles: false), // Y축 레이블 숨기기
+                                showTitles: true,
+                                reservedSize: 50,
+                              ), // Y축 레이블 숨기기
                             ),
                             rightTitles: AxisTitles(
                               sideTitles: SideTitles(
@@ -522,7 +524,7 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                 color: Colors.blueAccent.shade200,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Text("예측된 SOx", style: TextStyle(
+              child: const Text("예측된 SOx (ppm)", style: TextStyle(
                   color: Colors.white, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(
@@ -593,7 +595,9 @@ class _PollutionChartsState extends State<NavPollutionCharts> {
                             ),
                             leftTitles: AxisTitles(
                               sideTitles: SideTitles(
-                                  showTitles: false), // Y축 레이블 숨기기
+                                showTitles: true,
+                                reservedSize: 50,
+                              ), // Y축 레이블 숨기기
                             ),
                             rightTitles: AxisTitles(
                               sideTitles: SideTitles(
@@ -650,13 +654,13 @@ Widget getBottomTitles(double value, TitleMeta meta) {
   Widget text;
   switch (value.toInt()) {
     case 0:
-      text = const Text("0");
+      text = const Text("0분 후");
       break;
     case 60:
-      text = const Text("60");
+      text = const Text("60분 후");
       break;
     case 120:
-      text = const Text("120");
+      text = const Text("120 후");
       break;
     default:
       text = const Text(" ");

@@ -214,60 +214,21 @@ class _TimePredictState extends State<TimePredict> {
             const SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text(
-                    'NOx 현재 값',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
+            Container(
+              padding: const EdgeInsets.all(5),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.orange,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: const Text(
+                ' 노란색 그래프는 예측된 결과 입니다.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text(
-                    'SOx 현재 값',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Text(
-                    '예측 값',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             const SizedBox(
               height: 10,

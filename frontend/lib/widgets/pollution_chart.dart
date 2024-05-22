@@ -7,6 +7,9 @@ import 'package:kyonggi_project/services/actual_sox.dart';
 import '../screens/time_predict.dart';
 import 'nav_pollution_charts.dart';
 
+int hours = 0;
+int minutes = 0;
+
 class PollutionCharts extends StatefulWidget {
   final int month;
   final int day;
@@ -28,9 +31,35 @@ class PollutionCharts extends StatefulWidget {
 class _PollutionChartsState extends State<PollutionCharts> {
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    hours = widget.hour;
+    minutes = widget.minute;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          padding: const EdgeInsets.all(5),
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Colors.redAccent.shade200,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Text(" 예측된 NOx", style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold)),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 15,top: 5),
+          alignment: Alignment.centerLeft,
+          child: const Text("(단위:ppm)", style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.normal
+          )
+          ),
+        ),
         SizedBox(
           width: MediaQuery.of(context).size.width, // Get screen width
           height: MediaQuery.of(context).size.height / 4,
@@ -89,23 +118,23 @@ class _PollutionChartsState extends State<PollutionCharts> {
                         show: true,
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
-                            showTitles: true,
-                            // getTitlesWidget: getBottomTitlesTimePredict,
+                            showTitles: false,
+                            getTitlesWidget: getBottomTitlesTimePredict,
                             reservedSize: 30,
                           ),
                           axisNameWidget: Text(
-                            '지정한 시간부터 30분 간격으로 예측한\nNOx(주황색)값과 실제 NOx(빨간색)값',
+                            '             0(h)                                                                              12(h)                                                                          24(h)',
                             style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
-                          axisNameSize: 40,
+                          axisNameSize: 20,
                         ),
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            reservedSize: 50
+                            reservedSize: 50,
                           ),
                         ),
                         rightTitles: AxisTitles(
@@ -127,6 +156,29 @@ class _PollutionChartsState extends State<PollutionCharts> {
               // 데이터 로딩 중 표시할 위젯
               return const Center(child: CircularProgressIndicator());
             },
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          padding: const EdgeInsets.all(5),
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: Colors.blueAccent.shade200,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Text(" 예측된 SOx", style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold
+          )
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 15,top: 5),
+          alignment: Alignment.centerLeft,
+          child: const Text("(단위:ppm)", style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.normal
+          )
           ),
         ),
         SizedBox(
@@ -152,6 +204,14 @@ class _PollutionChartsState extends State<PollutionCharts> {
             },
           ),
         ),
+        Container(
+          margin: const EdgeInsets.only(left: 15,top: 5),
+          alignment: Alignment.centerLeft,
+          child: const Text("(단위:ppm)", style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.normal
+          )
+          ),
+        ),
       ],
     );
   }
@@ -174,26 +234,23 @@ class _PollutionChartsState extends State<PollutionCharts> {
   List<FlSpot> _predictedSoxDataPoints(List<PredictedSox> data) {
     return data
         .map((data) => FlSpot(
-      data.minute * 60.toDouble() +
-          data.hour * 60 * 60.toDouble() +
-          data.day *
-              24 *
-              60 *
-              60.toDouble(), // Calculate milliseconds since epoch
-      data.predictedSox,
-    ))
-        .toList();
-  }
-
-  List<FlSpot> _actualNoxDataPoints(List<PredictedNox> data) {
-    return data
-        .map((data) => FlSpot(
               data.minute * 60.toDouble() +
                   data.hour * 60 * 60.toDouble() +
                   data.day *
                       24 *
                       60 *
                       60.toDouble(), // Calculate milliseconds since epoch
+              data.predictedSox,
+            ))
+        .toList();
+  }
+
+  List<FlSpot> _actualNoxDataPoints(List<PredictedNox> data) {
+    return data
+        .map((data) => FlSpot(
+        data.minute * 60.toDouble() +
+                  data.hour * 60 * 60.toDouble() +
+            data.day * 24 * 60 * 60.toDouble(), // Calculate milliseconds since epoch
               data.actualNox,
             ))
         .toList();
@@ -204,10 +261,7 @@ class _PollutionChartsState extends State<PollutionCharts> {
         .map((data) => FlSpot(
       data.minute * 60.toDouble() +
           data.hour * 60 * 60.toDouble() +
-          data.day *
-              24 *
-              60 *
-              60.toDouble(), // Calculate milliseconds since epoch
+      data.day * 24 * 60 * 60.toDouble(), // Calculate milliseconds since epoch
       data.predictedNox,
     ))
         .toList();
@@ -246,7 +300,11 @@ class _PollutionChartsState extends State<PollutionCharts> {
           ),
         ),
       ),
-      gridData: const FlGridData(show: true),
+      gridData: const FlGridData(
+        show: true,
+        drawHorizontalLine: true,
+        drawVerticalLine: true,
+      ),
       lineTouchData: const LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           showOnTopOfTheChartBoxArea: false,
@@ -259,23 +317,23 @@ class _PollutionChartsState extends State<PollutionCharts> {
         show: true,
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 30
+            showTitles: false,
+            // getTitlesWidget: getBottomTitlesTimePredict2,
           ),
           axisNameWidget: Text(
-            '지정한 시간부터 30분 간격으로 예측한\nSOx(주황색)값과 실제 SOx(파란색)값',
+            '             0(h)                                                                              12(h)                                                                          24(h)',
             style: TextStyle(
               color: Colors.black,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
             ),
           ),
-          axisNameSize: 40,
+          axisNameSize: 20,
         ),
         leftTitles: AxisTitles(
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 50,
-          ), // Y축 레이블 숨기기
+          ),
         ),
         rightTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false), // Y축 레이블 숨기기
@@ -310,11 +368,49 @@ List<LineTooltipItem> getTooltipItems4(List<LineBarSpot> lineBars) {
   ];
 }
 
-// Widget getBottomTitlesTimePredict(double value, TitleMeta meta) {
-//   Widget text;
-//
-//   // 시작 값과 끝 값만 넣기
-//
-//
-//   return SideTitleWidget(axisSide: meta.axisSide, child: text);
-// }
+Widget getBottomTitlesTimePredict(double value, TitleMeta meta) {
+  Widget text;
+
+  // 시작 값과 끝 값만 넣기
+  switch ((value.toInt()) ~/ 180.toInt()) {
+    case 0:
+      text = const Text("0(h)");
+      break;
+    case 222:
+      text = const Text("12(h)");
+      break;
+    case 470:
+      text = const Text("24(h)");
+      break;
+    default:
+      text = const Text("");
+      break;
+  }
+
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
+}
+
+Widget getBottomTitlesTimePredict2(double value, TitleMeta meta) {
+  Widget text;
+
+  // 시작 값과 끝 값만 넣기
+  var day = value ~/ (24 * 60 * 60);
+  var hour = (value - (day * 24 * 60 * 60)) ~/ (60 * 60);
+  var minute = (value - day * 24 * 60 * 60 - hour * 60 * 60) ~/ 60;
+
+  switch(day) {
+    case 0:
+      text = const Text("0(h)");
+      break;
+    case 222:
+      text = const Text("12(h)");
+      break;
+    case 470:
+      text = const Text("24(h)");
+      break;
+    default:
+      text = const Text(" ");
+      break;
+  }
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
+}
